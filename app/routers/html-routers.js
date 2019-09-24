@@ -1,5 +1,10 @@
-module.exports = function(app){	
+const mysql = require("mysql");
+
+module.exports = function(app, connection){	
     app.get('/', function(req, res){	
-        res.send('Hello from Team-34');	
+        // res.send('Hello from Team-34');	
+        connection.query('SELECT * FROM stock', function(err, data){
+            (err)? res.send(err).toString(): res.json({stock:data});
+        });
     });	
 }; 
