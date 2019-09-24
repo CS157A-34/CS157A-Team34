@@ -9,7 +9,7 @@ Team repository for team 34 group project
 
 [**Sachin Shah**](https://github.com/sachinio20)
 
-[**Sharon(En-Ping**) Shih](https://github.com/SharonShih)
+[**Sharon(En-Ping) Shih**](https://github.com/SharonShih)
 
 
 
