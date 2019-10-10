@@ -17,11 +17,14 @@ With all the prerequisites installed, clone this repository with
 ## To Run:
 * In Command Prompt:
     1. Go to file location in your machine: `cd CS157A-Team34`
-    2. `cd app`
-    3. Install all dependencies with `npm install`
+    2. `cd app/backend`
+    3. Install all dependencies with `npm install` for backend 
+    4. `cd client`
+    5. Install all dependencies with `npm install` for front-end
+    6. 
 
 * Changing your own MySQL Password
-    * After `cd app`, find the server.js
+    * After `cd app/backend`, find the app.js
     ```
     const connection = mysql.createConnection({
     host: "localhost",
@@ -31,7 +34,10 @@ With all the prerequisites installed, clone this repository with
     });
     ```
 
-* RUN the app by `node server`
+* RUN the backend by `node start` in `app/backend`
+* Then RUN the React by `node start` in `app/backend/client`
+
+* checkout `localhost:3000` for front-end port and checkout `localhost:3001` for backend port, make sure they both working. 
     
 ## Team Member
 
