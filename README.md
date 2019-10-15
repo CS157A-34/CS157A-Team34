@@ -34,8 +34,8 @@ With all the prerequisites installed, clone this repository with
     });
     ```
 
-* RUN the backend by `node start` in `app/backend`
-* Then RUN the React by `node start` in `app/backend/client`
+* RUN the backend by `npm start` in `app/backend`
+* Then RUN the React by `npm start` in `app/backend/client`
 
 * checkout `localhost:3000` for front-end port and checkout `localhost:3001` for backend port, make sure they both working. 
     
