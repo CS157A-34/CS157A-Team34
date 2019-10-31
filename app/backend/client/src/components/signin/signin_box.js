@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styles from './signin_box.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class SignIn extends Component {
   state = {
@@ -22,9 +24,19 @@ class SignIn extends Component {
   render() {//building react method that comes inse od react component
     const { users } = this.state;
     return (//jsx code and can return only a single parent tag
-      <div className="App">
-          <style width="350" height="263" padding="10px" color="black"></style>
-      </div>
+      // <div className="App">
+          <div className="box">
+            <h6 className="header">Sign In Box</h6>
+            <text className="text">Enter your Email</text>
+            <input type="text" className="input"/>
+            <text className="text">Password</text>
+            <input type="text" className="input"/>
+            <div className="button">Sign In</div>
+            <div className="lead">TEST!!!!!!!!!!!</div>
+          </div>
+          
+          
+      // </div>
     );
   }
 }
