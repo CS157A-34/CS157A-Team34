@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './dashboard.css';
+import './dashboard.css';
 
 class Header extends Component {
   render() {
     return (
         <header className="masthead text-white text-center background-dashboard">
             <div className="overlay"></div>
-            <div className="container">
+            <div className="background-dashboard">
                 <div className="row">
                     <div className="col-xl-9 mx-auto">
                         <h1 className="mb-5">Manage your personal stock list and revenue!</h1>
