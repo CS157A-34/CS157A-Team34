@@ -5,6 +5,8 @@ import SignUp from './components/signup/signup_box';
 import DashBoard from './components/dashboard/dashboard';
 import Home from './components/home/homepage';
 import Profile from './components/profile/profile';
+import Earning from './components/earning/earning';
+import Manage from './components/manage_earning/manage';
 import './App.css';
 
 function App() {
@@ -12,9 +14,12 @@ function App() {
     <div className="App">
       {/* <UserTest /> <DashBoard />*/}
       {/* <DashBoard /> */}
-      <SignIn />
+      {/* <SignIn /> */}
       {/* <SignUp /> */}
        {/* <Home /> */}
+       {/* <Profile /> */}
+       {/* <Earning /> */}
+       <Manage />
     
     </div>
   );
