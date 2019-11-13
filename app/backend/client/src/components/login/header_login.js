@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login_box.css';
+import axios from 'axios';
 
 class Header extends Component {
     render() {
@@ -8,19 +9,18 @@ class Header extends Component {
             <header className="masthead-1 background-signin">
                 <div className="row">
                     <div className="login-dark">
-                        <text className="h5-style">Log In</text>
-                        <form>
+                        <div className="h5-style">Log In</div>
+                        <form action="auth" method="POST">
                             <div className="form-row">
-                                <image className="icon-image" />
+                                <div className="icon-image" />
                                 <input className="input-style" type="email" placeholder="  Email" />
                                 <input className="input-style" type="password" placeholder="  Password" />
-                                <button class="btn-primary btn-block button-style" type="submit">Log In</button>
-                                <text className="text-style">Forget your password?</text>
+                                <button className="btn-primary btn-block button-style" type="submit">Log In</button>
+                                <div className="text-style">Forget your password?</div>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </header>
         );
     }

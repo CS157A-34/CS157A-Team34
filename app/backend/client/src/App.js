@@ -11,9 +11,9 @@ function App() {
     <div className="App">
       {/* <UserTest /> <DashBoard />*/}
       {/* <DashBoard /> */}
-      {/* <SignIn /> */}
+      <SignIn />
       {/* <SignUp /> */}
-       <Home />
+       {/* <Home /> */}
     
     </div>
   );
