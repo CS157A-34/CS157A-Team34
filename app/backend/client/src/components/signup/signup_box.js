@@ -9,6 +9,7 @@ import Footer from '../dashboard/footer';
 class SignUp extends Component {
   state = {
     users: []
+
   }
   componentDidMount() {
     this.getUsers();
