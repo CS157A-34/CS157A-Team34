@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './navbar_login';
-import Header from './header_login';
+import NavBar from '../home/navbar_home';
+import Header from './header_profile';
 import Footer from '../dashboard/footer';
 
-class SignIn extends Component {
+class Profile extends Component {
   state = {
     users: []
   }
@@ -14,7 +14,7 @@ class SignIn extends Component {
   }
 
   getUsers = _ => {
-    axios.get('/SignIn')
+    axios.get('/Profile')
       .then((data) => {
         console.log(data.data.User);
         this.setState({ users: data.data.User });
@@ -36,4 +36,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default Profile;

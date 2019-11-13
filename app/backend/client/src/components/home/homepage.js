@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './navbar_home';
 import Header from './header_home';
-import Footer from './footer_home';
+import Footer from '../dashboard/footer';
 
 class Home extends Component {
   state = {

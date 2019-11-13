@@ -4,7 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './navbar_signup';
 import Header from './header_signup';
-import Footer from './footer_signup';
+import Footer from '../dashboard/footer';
 
 class SignUp extends Component {
   state = {
