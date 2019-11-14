@@ -19,7 +19,7 @@ class Header extends Component {
                                 <Route>
                                     <div className="col-12 col-md-9 mb-2 mb-md-0"><input className="form-control form-control-lg" type="email" placeholder="Enter your email..." /></div>
                                     <div className="col-12 col-md-3">
-                                        <Link to="/signup" className="btn btn-primary btn-block btn-lg" type="submit">Sign up!</Link>
+                                        <Link to="/signup" className="btn btn-primary btn-block btn-lg" role="button">Sign up!</Link>
                                     </div>
                                 </Route>
                             </div>

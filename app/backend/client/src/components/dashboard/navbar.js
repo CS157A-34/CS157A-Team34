@@ -12,13 +12,14 @@ class NavBar extends Component {
   render() {
     return (
         <nav className="navbar navbar-light navbar-expand bg-light navigation-clean">
-          <Router>
-            <div className="container"><a className="navbar-brand" href="#">StockU</a><button data-toggle="collapse" className="navbar-toggler" data-target="#navcol-1"></button>
+          <Route>
+            <div className="container">
+              <Link to="/" className="navbar-brand" role="button">StockU</Link>
                 <div className="collapse navbar-collapse" id="navcol-1">
                   <Link to="/signin" className="btn btn-primary ml-auto" role="button">Sign In</Link>
                 </div>
             </div>
-          </Router>
+          </Route>
         </nav>
     );
   }

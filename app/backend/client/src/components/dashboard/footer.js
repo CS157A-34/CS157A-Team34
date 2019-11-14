@@ -17,7 +17,7 @@ class Footer extends Component {
                             <li className="list-inline-item"><span>⋅</span></li>
                             <li className="list-inline-item"><a href="#">Privacy Policy</a></li>
                         </ul>
-                        <p className="text-muted small mb-4 mb-lg-0">© StockU 2018. All Rights Reserved.</p>
+                        <p className="text-muted small mb-4 mb-lg-0">© StockU 2019. All Rights Reserved.</p>
                     </div>
                     <div className="col-lg-6 my-auto h-100 text-center text-lg-right">
                         <ul className="list-inline mb-0">

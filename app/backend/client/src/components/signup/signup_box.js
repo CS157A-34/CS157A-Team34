@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './navbar_signup';
+import NavBar from '../dashboard/navbar';
 import Header from './header_signup';
 import Footer from '../dashboard/footer';
 
