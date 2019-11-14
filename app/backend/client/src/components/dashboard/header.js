@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './dashboard.css';
 
@@ -15,8 +16,12 @@ class Header extends Component {
                     <div className="col-md-10 col-lg-8 col-xl-7 mx-auto">
                         <form>
                             <div className="form-row">
-                                <div className="col-12 col-md-9 mb-2 mb-md-0"><input className="form-control form-control-lg" type="email" placeholder="Enter your email..." /></div>
-                                <div className="col-12 col-md-3"><button className="btn btn-primary btn-block btn-lg" type="submit">Sign up!</button></div>
+                                <Route>
+                                    <div className="col-12 col-md-9 mb-2 mb-md-0"><input className="form-control form-control-lg" type="email" placeholder="Enter your email..." /></div>
+                                    <div className="col-12 col-md-3">
+                                        <Link to="/signup" className="btn btn-primary btn-block btn-lg" type="submit">Sign up!</Link>
+                                    </div>
+                                </Route>
                             </div>
                         </form>
                     </div>
