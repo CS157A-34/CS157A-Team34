@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './navbar_login';
 import Header from './header_login';
 import Footer from '../dashboard/footer';
 
 class SignIn extends Component {
-  //showUsers = user => <div key={user.User_id}>{user.User_name}{user.User_email}</div>
-  render() {//building react method that comes inse od react component
-    return (//jsx code and can return only a single parent tag
+  render() {
+    return (
       <div className="dashboard">
         <NavBar />
         <Header />

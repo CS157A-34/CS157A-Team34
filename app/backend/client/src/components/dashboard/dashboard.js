@@ -4,7 +4,6 @@ import NavBar from './navbar';
 import Header from './header';
 import Desc from './desc';
 import Footer from './footer';
-import styles from './dashboard.css';
 
 class DashBoard extends Component {
   render() {

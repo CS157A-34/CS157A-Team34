@@ -16,8 +16,6 @@ class NavBar extends Component {
             <Dropdown.Divider></Dropdown.Divider>
             <Dropdown.Item href="#/action-5">Logout</Dropdown.Item>
           </DropdownButton>
-
-
         </div>
       </nav>
     );
