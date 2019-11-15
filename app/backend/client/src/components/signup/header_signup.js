@@ -13,6 +13,8 @@ class Header extends Component {
                         
                             <div className="form-row">
                                 <image className="icon-pen" />
+                                <input className="input-style" type="First Name" placeholder=" Enter first name" />
+                                <input className="input-style" type="Last Name" placeholder= "Enter Last Name" />
                                 <input className="input-style" type="email" placeholder="  Your Email" />
                                 <input className="input-style" type="password" placeholder="  Your Password" />
                                 <input className="input-style" type="password" placeholder="  Confirm Password" />
