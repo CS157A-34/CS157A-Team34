@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import {
+  Route,
+  Link
+} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Header extends Component {
   render() {
     return (
-      <header className="masthead-2 background-home">
-
-        <div className="profile">
-
+      <header className="masthead-1 background-home">
           <div className="side-nav">
-            <button className="side-nav-item">My Profile</button>
-            <button className="side-nav-item side-nav-item-selected">My Earning</button>
-            <button className="side-nav-item">Favorite List</button>
-          </div>
+            <Route>
+              <Link to="/profile" className="side-nav-item" role="button">My Profile</Link>
+              <Link to="/earning" className="side-nav-item side-nav-item-selected" role="button">My Earning</Link>
+              <Link to="/" className="side-nav-item" role="button">Favorite List</Link>
+            </Route>
 
           <div className="profile-container">
             <h2>Manage Earning</h2>

@@ -5,8 +5,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { Button, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Navbar } from 'react-bootstrap'
 
 class NavBar extends Component {
   render() {

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {
+    Route,
+    Link
+} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login_box.css';
 
@@ -14,8 +18,10 @@ class Header extends Component {
                                 <div className="icon-image" />
                                 <input className="input-style" type="email" placeholder="  Email" />
                                 <input className="input-style" type="password" placeholder="  Password" />
-                                <button className="btn-primary btn-block button-style" type="submit">Log In</button>
-                                <div className="text-style">Forget your password?</div>
+                                <Route>
+                                    <Link to="/home" className="btn-primary btn-block button-style" role="button">Log In</Link>
+                                    <Link to="/" className="text-style" role="button">Forget your Password?</Link>
+                                </Route>
                             </div>
                         </form>
                     </div>
