@@ -43,9 +43,22 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// require('./sockets/message-sockets')(io, connection);
 require('./routes/html-routers')(app, connection);
-// require('./routes/message-api-routes')(app, connection);
+
+//sign up auth
+app.get('/signup', (req, res) => {
+  const {name, email, password} = req.query;
+  const id = Math.random();
+  const INSERT_USER = `INSERT INTO User VALUES('${name}', '${email}','${password}')`;
+  connection.query(INSERT_USER, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.send('user sucessfully added')
+    }
+});
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,5 +76,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;

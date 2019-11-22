@@ -15,27 +15,10 @@ import Earning from './components/earning/earning';
 import Manage from './components/manage_earning/manage';
 
 class App extends React.Component {
-
-  state = {
-    users:[]
-    }
-    componentDidMount(){
-    this.getUsers();
-    
-    }
-    
-    getUsers = _ => {
-    fetch('http://localhost:3000')
-    .then(response => console.log(response))//response.json())
-    .then(({response}) => this.setState({users: 'response.users'}))
-    .catch(error => console.log(error));
-    }
-    /*showUsers = user => {user.username}*/
-
   render(){
     return (
       /*<DashBoard />*/
-      <SignUp />
+      <DashBoard />
     );
   }
 }

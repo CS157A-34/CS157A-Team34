@@ -12,7 +12,6 @@ class SignUp extends Component {
         <NavBar />
         <Header />
         <Footer />
-
       </div>
     );
   }

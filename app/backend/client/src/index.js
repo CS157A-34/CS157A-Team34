@@ -21,7 +21,7 @@ const routing = (
             {/* <UserTest /> <DashBoard />*/}
             <Route exact path="/" component={App} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
+            <Route exact path="/signup" component={SignUp} />
             <Route path="/home" component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/earning" component={Earning} />
