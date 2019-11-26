@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 // var indexRouter = require('./routes/html-routes');
 // var usersRouter = require('./routes/message-api-routes');
 
@@ -28,11 +29,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "haoly66ly..",  /* change to your own MySQL Password */
+  password: "shihsharon-18",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
+  // multipleStatement: true
 });
 
 connection.connect(function(err){
@@ -48,7 +52,7 @@ require('./routes/html-routers')(app, connection);
 //sign up auth
 app.get('/signup', (req, res) => {
   const {name, email, password} = req.query;
-  const id = Math.random();
+  // const id = Math.random();
   const INSERT_USER = `INSERT INTO User VALUES('${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results)=>{
     if(err){
@@ -59,6 +63,44 @@ app.get('/signup', (req, res) => {
     }
 });
 })
+
+//profile
+app.get('/profile', (req, res) => {
+  //TODO: Change WHERE condition of User_name
+  const SELECT_PROFILE = 'SELECT User_name, User_email FROM User WHERE User_name = "Bruce Wayne"';
+  connection.query(SELECT_PROFILE, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.json({
+        data: results
+      })
+    }
+});
+})
+
+//Favorite List
+app.get('/fav', (req, res) => {
+  const SELECT_FAV_LIST = 'SELECT  Stock_id, Stock_ticker, Daily_high, Daily_low, Closing_price, Average_price, Trading_volume FROM stockWeb.Info, stockWeb.Stock WHERE Info.Info_id = Stock.Stock_id';
+  connection.query(SELECT_FAV_LIST, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.json({
+        data: results
+      })
+    }
+});
+})
+
+
+
+//TO check gets data properly in json format: "http://localhost:4000/profile"
+app.listen(4000, () => {
+  console.log('Profile server listening on')
+} )
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

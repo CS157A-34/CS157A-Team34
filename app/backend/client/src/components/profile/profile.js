@@ -5,9 +5,14 @@ import Header from './header_profile';
 import Footer from '../dashboard/footer';
 
 class Profile extends Component {
+  
+  
   render() {
+    
     return (
       <div className="dashboard">
+        
+
         <NavBar />
         <Header />
         <Footer />
