@@ -81,7 +81,7 @@ app.get('/profile', (req, res) => {
 
 //Favorite List
 app.get('/fav', (req, res) => {
-  const SELECT_FAV_LIST = 'SELECT  Stock_id, Stock_ticker, Daily_high, Daily_low, Closing_price, Average_price, Trading_volume FROM stockWeb.Info, stockWeb.Stock WHERE Info.Info_id = Stock.Stock_id';
+  const SELECT_FAV_LIST = 'SELECT Stock_id, Stock_ticker, Daily_high, Daily_low, Closing_price, Average_price, Trading_volume FROM stockWeb.Info, stockWeb.Stock WHERE Info.Info_id = Stock.Stock_id';
   connection.query(SELECT_FAV_LIST, (err, results)=>{
     if(err){
       return res.send(err)
@@ -91,9 +91,23 @@ app.get('/fav', (req, res) => {
         data: results
       })
     }
-});
+  });
 })
 
+//Earning list
+app.get('/earning', (req, res) => {
+  const SELECT_EARNING_LIST = 'SELECT Earning_id, Stock_ticker, Costs, Price, Share FROM stockWeb.Earnings'
+  connection.query(SELECT_EARNING_LIST, (err, results) => {
+      if(err){
+        return res.send(err)
+      }
+      else {
+        return res.json({
+          data: results
+        })
+      }
+  });
+})
 
 
 //TO check gets data properly in json format: "http://localhost:4000/profile"
