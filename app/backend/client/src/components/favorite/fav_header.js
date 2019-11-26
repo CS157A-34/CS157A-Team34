@@ -27,6 +27,7 @@ class Header extends Component {
   renderDailyLow = ({Stock_id, Daily_low}) => <div key={Stock_id}>{Daily_low}</div>;
   renderClosingPrice = ({Stock_id, Closing_price}) => <div key={Stock_id}>{Closing_price}</div>;
   renderTradingVolume = ({Stock_id, Trading_volume}) => <div key={Stock_id}>{Trading_volume}</div>;
+  renderEdit = ({stock_id}) => <div><button type="submit" className="button-delete">Delete</button></div>;
 
 
   render() {
@@ -44,7 +45,7 @@ class Header extends Component {
 
               <table className="table">
                 <thead>
-                  <tr>
+                  <tr className="fav-tr">
                     <th>Stock</th>
                     <th>High</th>
                     <th>Low</th>
@@ -53,16 +54,16 @@ class Header extends Component {
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>{fav.map(this.renderTicker)}</td>
-                    <td>{fav.map(this.renderDailyHigh)}</td>
-                    <td>{fav.map(this.renderDailyLow)}</td>
-                    <td>{fav.map(this.renderTradingVolume)}</td>
-                    <td>{fav.map(this.renderClosingPrice)}</td>
+                <tbody className="list-body">
+                  <tr className="fav-tr">
+                    <td className="fav-td">{fav.map(this.renderTicker)}</td>
+                    <td className="fav-td">{fav.map(this.renderDailyHigh)}</td>
+                    <td className="fav-td">{fav.map(this.renderDailyLow)}</td>
+                    <td className="fav-td">{fav.map(this.renderTradingVolume)}</td>
+                    <td className="fav-td">{fav.map(this.renderClosingPrice)}</td>
+                    <td className="fav-td">{fav.map(this.renderEdit)}</td>
                   </tr>
                 </tbody>
-                <button type="submit" className="button-delete">Edit</button>
 
               </table>
               {/* <Link to="/manage+earning" className="button-add" role="button">Add New Earnings</Link> */}

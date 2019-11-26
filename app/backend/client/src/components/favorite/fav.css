@@ -1,7 +1,26 @@
 .button-delete {
   width: 70px;
+  max-height: 20px;
   background-color: red;
   border-radius: 4px;
   color: white;
   border-color: red;
+  font-size: 11px;
 }
+
+.table {
+  margin: 1em 0;
+  min-width: 900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.table .fav-tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.fav-tr * {
+  height: 30px;
+}
+

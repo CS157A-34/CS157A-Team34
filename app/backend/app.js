@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
 // var indexRouter = require('./routes/html-routes');
 // var usersRouter = require('./routes/message-api-routes');
 
@@ -34,7 +33,7 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "shihsharon-18",  /* change to your own MySQL Password */
+  password: "haoly66ly..",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
