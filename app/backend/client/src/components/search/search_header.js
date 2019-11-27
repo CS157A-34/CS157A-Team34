@@ -21,6 +21,16 @@ class Header extends Component {
       .then(response => this.setState({ search: response.data }))
       .catch(err => console.error(err))
   }
+  
+  //check whether it's gain(green) or lose(red)
+  gainOrLose = (any) => {
+    if(Object.values(any) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   renderStockTicker = ({ Stock_id, Stock_ticker }) => <div key={Stock_id}>{Stock_ticker}</div>;
   renderStockName = ({ Stock_id, Stock_name }) => <div key={Stock_id}>{Stock_name}</div>;
@@ -49,18 +59,17 @@ class Header extends Component {
       const { Stock_id, Wk_change,Wk_percent,Mth_change,Mth_percent,Qt_change,Qt_percent,Half_change,Half_percent,Year_change,Year_percent}
       = element
       return (
-        //TODO: Add If, else to check whether it's gain(green) or lose(red)
         <tr key={Stock_id}>
-          <td><div className="lose">{Wk_change}</div></td>
-          <td><div className="gain">{Wk_percent}</div></td>
-          <td>{Mth_change}</td>
-          <td><div className="gain">{Mth_percent}</div></td>
-          <td>{Qt_change}</td>
-          <td>{Qt_percent}</td>
-          <td>{Half_change}</td>
-          <td>{Half_percent}</td>
-          <td>{Year_change}</td>
-          <td>{Year_percent}</td>
+          <td><div className={this.gainOrLose({Wk_change})? 'gain': 'lose'}>{Wk_change}</div></td>
+          <td><div className={(this.gainOrLose({Wk_percent})? 'gain': 'lose')}>{Wk_percent}</div></td>
+          <td><div className={(this.gainOrLose({Mth_change})? 'gain': 'lose')}>{Mth_change}</div></td>
+          <td><div className={(this.gainOrLose({Mth_percent})? 'gain': 'lose')}>{Mth_percent}</div></td>
+          <td><div className={(this.gainOrLose({Qt_change})? 'gain': 'lose')}>{Qt_change}</div></td>
+          <td><div className={(this.gainOrLose({Mth_percent})? 'gain': 'lose')}>{Qt_percent}</div></td>
+          <td><div className={(this.gainOrLose({Half_change})? 'gain': 'lose')}>{Half_change}</div></td>
+          <td><div className={(this.gainOrLose({Half_percent})? 'gain': 'lose')}>{Half_percent}</div></td>
+          <td><div className={(this.gainOrLose({Year_change})? 'gain': 'lose')}>{Year_change}</div></td>
+          <td><div className={(this.gainOrLose({Year_percent})? 'gain': 'lose')}>{Year_percent}</div></td>
         </tr>
       )
     })
