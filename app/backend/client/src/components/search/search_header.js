@@ -65,7 +65,7 @@ class Header extends Component {
           <td><div className={(this.gainOrLose({Mth_change})? 'gain': 'lose')}>{Mth_change}</div></td>
           <td><div className={(this.gainOrLose({Mth_percent})? 'gain': 'lose')}>{Mth_percent}</div></td>
           <td><div className={(this.gainOrLose({Qt_change})? 'gain': 'lose')}>{Qt_change}</div></td>
-          <td><div className={(this.gainOrLose({Mth_percent})? 'gain': 'lose')}>{Qt_percent}</div></td>
+          <td><div className={(this.gainOrLose({Qt_percent})? 'gain': 'lose')}>{Qt_percent}</div></td>
           <td><div className={(this.gainOrLose({Half_change})? 'gain': 'lose')}>{Half_change}</div></td>
           <td><div className={(this.gainOrLose({Half_percent})? 'gain': 'lose')}>{Half_percent}</div></td>
           <td><div className={(this.gainOrLose({Year_change})? 'gain': 'lose')}>{Year_change}</div></td>
