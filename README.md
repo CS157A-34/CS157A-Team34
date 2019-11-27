@@ -38,6 +38,8 @@ With all the prerequisites installed, clone this repository with
 * Then RUN the React by `npm start` in `app/backend/client`
 
 * checkout `localhost:3000` for front-end port and checkout `localhost:3001` for backend port, make sure they both working. 
+
+Make sure to import the stockWeb.sql file into SQL workbench. Use port 3000 for the database, which will be called stockWeb
     
 ## Team Member
 
