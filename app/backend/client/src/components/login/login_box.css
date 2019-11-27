@@ -1,5 +1,5 @@
 .background-signin {
-  background:url('../../assets/images/star-sky.jpg') no-repeat center center;
+  background:url('../../assets/images/aerial-photography-of-city-buildings-1896021.jpg') no-repeat center center;
   background-size: cover;
   height: 100%;
 }
@@ -25,13 +25,13 @@ header.masthead-1 {
   margin-left: 440px;
 }
 .h5-style {
-  color: #FFF;
+  color: #222F3E;
   font-size: 30px;
   position: center;
   margin: 0px;
 }
 .icon-image {
-  background:url('../../assets/images/lock-icon-1.png') no-repeat center center;
+  background:url('../../assets/images/lock.png') no-repeat center center;
   width: 80px;
   height: 80px;
   margin-left: 85px;
@@ -41,7 +41,8 @@ header.masthead-1 {
 .login-dark{
   width: 320px;
   height: 500px;
-  background-color: #1e2833;
+  background-color: lightslategrey;
+  /* #1e2833; */
   padding: 40px;
   border-radius: 4px;
   position: absolute;
@@ -51,11 +52,11 @@ header.masthead-1 {
   box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
 }
 .button-style{
-  background: #214a80;
+  background: #007bff;
   /* font-weight:400; */
   color:#FFF;
   text-align:center;
-  border:1px solid transparent;
+  /* border:1px solid transparent; */
   padding: 10px;
   margin-top: 20px;
   font-size:15px;
@@ -66,9 +67,9 @@ header.masthead-1 {
   width: 100%;
   height: 40px;
   line-height: 1.5;
-  color: #495057;
-  background-color: #1e2833;
-  border-color:#495057;
+  color: #222F3E;
+  background-color: lightgrey;
+  border-color: #222F3E;
   border-bottom-width: 1px;
   border-top-width: 0px;
   border-left-width: 0px;
@@ -76,7 +77,7 @@ header.masthead-1 {
   margin: 10px;
 }
 .text-style {
-  color: #72787e;
+  color: #222F3E;
   font-size: 10px;
   margin-top: 10px;
   margin-left: 60px;

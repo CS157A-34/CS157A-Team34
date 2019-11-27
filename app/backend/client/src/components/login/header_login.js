@@ -16,7 +16,7 @@ class Header extends Component {
                         <form action="auth" method="POST">
                             <div className="form-row">
                                 <div className="icon-image" />
-                                <input className="input-style" type="email" placeholder="  Email" />
+                                <input className="input-style" type="email" placeholder="  Email"/>
                                 <input className="input-style" type="password" placeholder="  Password" />
                                 <Route>
                                     <Link to="/home" className="btn-primary btn-block button-style" role="button">Log In</Link>

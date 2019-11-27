@@ -1,5 +1,5 @@
 .background-home {
-  background:url('../../assets/images/star-sky.jpg') no-repeat center center;
+  background:url('../../assets/images/aerial-photography-of-city-buildings-1896021.jpg') no-repeat center center;
   background-size: cover;
   height: 100%;
 }
@@ -27,11 +27,16 @@ header.masthead-2 {
   display: block;
   width: 100%;
   height: 5%;
-  line-height: 1.5; 
+  line-height: 1.5;
 }
 .icon-search {
   background:url('../../assets/images/search32x32.png') no-repeat center center;
   width: 32px;
   height: 32px;
   margin-top: 10px;
+}
+
+.form-control {
+  
+  border: 1px solid cadetblue;
 }

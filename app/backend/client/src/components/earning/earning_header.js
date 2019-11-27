@@ -16,26 +16,38 @@ class Header extends Component {
   }
 
   getEarns = _ => {
-      fetch('http://localhost:4000/earning')
+    fetch('http://localhost:4000/earning')
       .then(response => response.json())
-      .then(response => this.setState({earning: response.data}))
+      .then(response => this.setState({ earning: response.data }))
       .catch(err => console.error(err))
   }
 
-  getEarning = (costs, price, share) => {
-    let total = costs - price * share;
+  getEarning = (cost, price, share) => {
+    let total = (price - cost) * share;
     return total.toFixed();
   }
 
-  renderTicker = ({Earning_id, Stock_ticker}) => <div key={Earning_id}>{Stock_ticker}</div>;
-  renderCosts = ({Earning_id, Costs}) => <div key={Earning_id}>{Costs}</div>;
-  renderPrice = ({Earning_id, Price}) => <div key={Earning_id}>{Price}</div>;
-  renderShare = ({Earning_id, Share}) => <div key={Earning_id}>{Share}</div>;
-  renderEarning = ({Earning_id, Costs, Price, Share}) => <div key={Earning_id}>{this.getEarning(Costs, Price, Share)}</div>;
-  renderEdit = ({stock_id}) => <div><button type="submit" className="button-edit">Edit</button></div>;
+
+  // TODO: Check if total gain(green) or lose (red)
+  // TODO: Edit button
+  // TODO: Total of the total earning (entire row)
+  renderEarning() {
+    return this.state.earning.map((element, index) => {
+      const { Earning_id, Stock_ticker, Cost, Price, Share } = element
+      return (
+        <tr key={Earning_id}>
+          <td>{Stock_ticker}</td>
+          <td>${Cost}</td>
+          <td>${Price}</td>
+          <td>{Share}</td>
+          <td><div className="lose"> ${this.getEarning(Cost, Price, Share)}</div></td>
+          <td><div><button type="submit" className="button-edit">Edit</button></div></td>
+        </tr>
+      )
+    })
+  }
 
   render() {
-    const {earning} = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -43,7 +55,7 @@ class Header extends Component {
             <Link to="/profile" className="side-nav-item" role="button">My Profile</Link>
             <Link to="/earning" className="side-nav-item side-nav-item-selected" role="button">My Earning</Link>
             <Link to="/fav" className="side-nav-item" role="button">Favorite List</Link>
-
+            <Link to="/history" className="side-nav-item" role="button">Search History</Link>
 
             <div className="profile-container">
               <h2>My Earning</h2>
@@ -53,13 +65,16 @@ class Header extends Component {
                   <tr className="fav-tr">
                     <th>Stock</th>
                     <th>Costs</th>
-                    <th>Price</th>
+                    <th>Equity</th>
                     <th>Share</th>
                     <th>Earnings</th>
                     <th></th>
                   </tr>
                 </thead>
-                <tbody className="list-body">
+                <tbody>
+                  {this.renderEarning()}
+                </tbody>
+                {/* <tbody className="list-body">
                   <tr className="fav-tr">
                     <td className="fav-td">{earning.map(this.renderTicker)}</td>
                     <td className="fav-td">{earning.map(this.renderCosts)}</td>
@@ -68,10 +83,10 @@ class Header extends Component {
                     <td className="fav-td">{earning.map(this.renderEarning)}</td>
                     <td className="fav-td">{earning.map(this.renderEdit)}</td>
                   </tr>
-                </tbody>
-
+                </tbody> */}
               </table>
-              <Link to="/manage+earning" className="button-add" role="button">Add New Earnings</Link>
+              <Link to="/manage+earning" className="button-add" role="button">+ Add New Earnings</Link>
+                  
             </div>
           </Route>
         </div>

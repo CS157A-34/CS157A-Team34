@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
 import SignIn from './components/login/login_box';
 import SignUp from './components/signup/signup_box';
@@ -10,6 +10,8 @@ import Profile from './components/profile/profile';
 import Earning from './components/earning/earning';
 import Manage from './components/manage_earning/manage';
 import Favorite from './components/favorite/favorite';
+import Search from './components/search/search';
+import History from './components/history/history';
 import * as serviceWorker from './serviceWorker';
 
 
@@ -27,10 +29,9 @@ const routing = (
             <Route path="/earning" component={Earning} />
             <Route path="/manage+earning" component={Manage} />
             <Route path="/fav" component={Favorite} />
+            <Route path="/search" component={Search} />
+            <Route path="/history" component={History} />
 
-            {/* <Profile /> */}
-            {/* <Earning /> */}
-            {/* <Manage /> */}
         </div>
     </Router>
 )

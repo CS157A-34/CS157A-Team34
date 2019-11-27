@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "haoly66ly..",  /* change to your own MySQL Password */
+  password: "shihsharon-18",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
@@ -52,7 +52,7 @@ require('./routes/html-routers')(app, connection);
 app.get('/signup', (req, res) => {
   const {name, email, password} = req.query;
   // const id = Math.random();
-  const INSERT_USER = `INSERT INTO User VALUES('${name}', '${email}','${password}')`;
+  const INSERT_USER = `INSERT INTO User VALUES(UUID(),'${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results)=>{
     if(err){
       return res.send(err)
@@ -64,8 +64,8 @@ app.get('/signup', (req, res) => {
 })
 
 //profile
+//TODO: Change WHERE condition -> User_name or User_email
 app.get('/profile', (req, res) => {
-  //TODO: Change WHERE condition of User_name
   const SELECT_PROFILE = 'SELECT User_name, User_email FROM User WHERE User_name = "Bruce Wayne"';
   connection.query(SELECT_PROFILE, (err, results)=>{
     if(err){
@@ -80,8 +80,9 @@ app.get('/profile', (req, res) => {
 })
 
 //Favorite List
+//TODO: Change WHERE condition -> User_id or name
 app.get('/fav', (req, res) => {
-  const SELECT_FAV_LIST = 'SELECT Stock_id, Stock_ticker, Daily_high, Daily_low, Closing_price, Average_price, Trading_volume FROM stockWeb.Info, stockWeb.Stock WHERE Info.Info_id = Stock.Stock_id';
+  const SELECT_FAV_LIST = 'SELECT * FROM Save, User, Stock, Daily WHERE User_name="Bruce Wayne" AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id';
   connection.query(SELECT_FAV_LIST, (err, results)=>{
     if(err){
       return res.send(err)
@@ -94,9 +95,43 @@ app.get('/fav', (req, res) => {
   });
 })
 
+//Search Result for individual stock
+//TODO: Change WHERE condition -> User_id or name
+//TODO: Add Search history to `Search` table
+app.get('/search', (req, res) => {
+  const SELECT_SEARCH_RESULT = 'SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = "FB"';
+  connection.query(SELECT_SEARCH_RESULT, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
+
+//Search History
+//TODO: Change WHERE condition -> User_id or name
+app.get('/history', (req, res) => {
+  const SELECT_SEARCH_HISTORY = 'SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_name="Bruce Wayne" ORDER BY Search_date ASC';
+  connection.query(SELECT_SEARCH_HISTORY, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
+
 //Earning list
+//TODO: Same as Fav list -> Change User_name
 app.get('/earning', (req, res) => {
-  const SELECT_EARNING_LIST = 'SELECT Earning_id, Stock_ticker, Costs, Price, Share FROM stockWeb.Earnings'
+  const SELECT_EARNING_LIST = 'SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_name="Bruce Wayne"';
   connection.query(SELECT_EARNING_LIST, (err, results) => {
       if(err){
         return res.send(err)

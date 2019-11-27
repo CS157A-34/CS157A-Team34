@@ -17,21 +17,35 @@ class Header extends Component {
 
   getFav = _ => {
     fetch('http://localhost:4000/fav')
-    .then(response => response.json())
-    .then(response => this.setState({fav: response.data}))
-    .catch(err => console.error(err) )
+      .then(response => response.json())
+      .then(response => this.setState({ fav: response.data }))
+      .catch(err => console.error(err))
   }
 
-  renderTicker = ({Stock_id, Stock_ticker}) => <div key={Stock_id}>{Stock_ticker}</div>;
-  renderDailyHigh = ({Stock_id, Daily_high}) => <div key={Stock_id}>{Daily_high}</div>;
-  renderDailyLow = ({Stock_id, Daily_low}) => <div key={Stock_id}>{Daily_low}</div>;
-  renderClosingPrice = ({Stock_id, Closing_price}) => <div key={Stock_id}>{Closing_price}</div>;
-  renderTradingVolume = ({Stock_id, Trading_volume}) => <div key={Stock_id}>{Trading_volume}</div>;
-  renderEdit = ({stock_id}) => <div><button type="submit" className="button-delete">Delete</button></div>;
-
+  renderStockData() {
+    return this.state.fav.map((element, index) => {
+      const { Stock_id, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
+      return (
+        <tr key={Stock_id}>
+          {/* TODO: 1.Should link to Stock company page 
+                    2. Delete from list*/}
+          <td> <Link to="/search" role="button">{Stock_ticker}</Link></td>
+          <td>{Open}</td>
+          <td>{Closing}</td>
+          <td>{High}</td>
+          <td>{Low}</td>
+          <td>{Price}</td>
+          <td>{Volume}</td>
+          <td>{Change}</td>
+          <td>{Change_percent}</td>
+          <td><button type="submit" className="button-delete">Delete</button></td>
+        </tr>
+      )
+    }
+    )
+  }
 
   render() {
-    const {fav} = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -39,34 +53,31 @@ class Header extends Component {
             <Link to="/profile" className="side-nav-item" role="button">My Profile</Link>
             <Link to="/earning" className="side-nav-item" role="button">My Earning</Link>
             <Link to="/fav" className="side-nav-item side-nav-item-selected" role="button">Favorite List</Link>
+            <Link to="/history" className="side-nav-item" role="button">Search History</Link>
+
 
             <div className="profile-container">
               <h2>My Favorite List</h2>
 
               <table className="table">
                 <thead>
-                  <tr className="fav-tr">
+                  <tr>
                     <th>Stock</th>
+                    <th>Open</th>
+                    <th>Closing</th>
                     <th>High</th>
                     <th>Low</th>
+                    <th>Price</th>
                     <th>Volumn</th>
-                    <th>Closing</th>
+                    <th>Change$</th>
+                    <th>Change%</th>
                     <th></th>
                   </tr>
                 </thead>
-                <tbody className="list-body">
-                  <tr className="fav-tr">
-                    <td className="fav-td">{fav.map(this.renderTicker)}</td>
-                    <td className="fav-td">{fav.map(this.renderDailyHigh)}</td>
-                    <td className="fav-td">{fav.map(this.renderDailyLow)}</td>
-                    <td className="fav-td">{fav.map(this.renderTradingVolume)}</td>
-                    <td className="fav-td">{fav.map(this.renderClosingPrice)}</td>
-                    <td className="fav-td">{fav.map(this.renderEdit)}</td>
-                  </tr>
+                <tbody>
+                  {this.renderStockData()}
                 </tbody>
-
               </table>
-              {/* <Link to="/manage+earning" className="button-add" role="button">Add New Earnings</Link> */}
             </div>
           </Route>
         </div>

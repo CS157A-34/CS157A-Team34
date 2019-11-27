@@ -36,6 +36,7 @@ class Header extends Component {
             <Link to="/profile" className="side-nav-item side-nav-item-selected" role="button">My Profile</Link>
             <Link to="/earning" className="side-nav-item" role="button">My Earning</Link>
             <Link to="/fav" className="side-nav-item" role="button">Favorite List</Link>
+            <Link to="/history" className="side-nav-item" role="button">Search History</Link>
           </Route>
           <div className="profile-container">
             <h2>Profile</h2>
