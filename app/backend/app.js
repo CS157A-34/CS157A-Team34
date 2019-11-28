@@ -57,7 +57,7 @@ app.get('/signup', (req, res) => {
   // const {username, email, password} = req.query;
 
   // const id = Math.random();
-  const INSERT_USER = `INSERT INTO User VALUES(UUID_SHORT(),'${name}', '${email}','${password}')`;
+  const INSERT_USER = `INSERT INTO User VALUES(UUID(),'${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results)=>{
     if(err){
       return res.send(err)
