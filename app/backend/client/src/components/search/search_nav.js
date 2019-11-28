@@ -2,39 +2,13 @@ import React, { Component } from 'react';
 import {
   Route,
   Link,
-  Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import "./search.css";
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      qResult: [],
-      key: '',
-      auth: true,
-      search: {
-        key: '',
-      }
-    }
-  }
-
-  searchKey = _ => {
-    // console.log(this.state.search.key);
-    fetch(`http://localhost:4040/search?key=${this.state.search.key}`)
-      .catch(err => console.log(err))
-    // console.log(this.state);
-    this.setState({ redirect: true });
-  }
-
   render() {
-    const { search } = this.state;
-    // if (this.state.redirect) {
-    //   console.log('Successfully find search key')
-    //   return <Redirect exact push to="/home" />;
-    // }
-
     return (
       <nav className="navbar navbar-light navbar-expand bg-light navigation-clean">
         <div className="container">
@@ -43,12 +17,9 @@ class NavBar extends Component {
             <div className="col-md-10 col-lg-8 col-xl-7 mx-auto search">
               <form>
                 <div className="form-row">
-                  <div className="col-12 col-md-9 mb-2 mb-md-0">
-                    <input className="form-control form-control-lg" type="text" placeholder="Search Stock Here..." onChange={i => this.setState({ search: { ...search, key: i.target.value } })} />
-                  </div>
-                  <div className="col-12 col-md-3">
-                    <Link to="/search" className="btn btn-block btn-lg icon-search" role="button" onClick={this.searchKey} /></div>
-                </div>
+                
+                    <Link to="/home" className="button-back " role="button">&#8592; Go back to search</Link></div>
+              
               </form>
             </div>
 

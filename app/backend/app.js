@@ -100,8 +100,6 @@ app.get('/signin', (req, res) => {
 });
 })
 
-
-
 //profile
 //TODO: Change WHERE condition -> User_name or User_email
 app.get('/profile', (req, res) => {
@@ -123,7 +121,7 @@ app.get('/profile', (req, res) => {
 //Favorite List
 //TODO: Change WHERE condition -> User_id or name
 app.get('/fav', (req, res) => {
-  const SELECT_FAV_LIST = 'SELECT * FROM Save, User, Stock, Daily WHERE User_name="Bruce Wayne" AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id';
+  const SELECT_FAV_LIST = `SELECT * FROM Save, User, Stock, Daily WHERE User_email ='${localUser}' AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id`;
   connection.query(SELECT_FAV_LIST, (err, results)=>{
     if(err){
       return res.send(err)
@@ -136,12 +134,35 @@ app.get('/fav', (req, res) => {
   });
 })
 
+
+let localKey = '';
+
 //Search Result for individual stock
 //TODO: Change WHERE condition -> User_id or name
 //TODO: Add Search history to `Search` table
+
+
 app.get('/search', (req, res) => {
-  const SELECT_SEARCH_RESULT = 'SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = "FB"';
+  let search_key = req.query.key;
+  console.log(search_key+ " -> input localKey");
+  const SELECT_SEARCH_RESULT = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${search_key}'`;
   connection.query(SELECT_SEARCH_RESULT, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      localKey = search_key;
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
+
+app.get('/serachResult', (req, res) => {
+  console.log(localKey+ " -> Search result localKey");
+  const SELECT_SEARCH = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${localKey}'`;
+  connection.query(SELECT_SEARCH, (err, results)=>{
     if(err){
       return res.send(err)
     }
@@ -153,10 +174,12 @@ app.get('/search', (req, res) => {
   });
 })
 
+
+
 //Search History
 //TODO: Change WHERE condition -> User_id or name
 app.get('/history', (req, res) => {
-  const SELECT_SEARCH_HISTORY = 'SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_name="Bruce Wayne" ORDER BY Search_date ASC';
+  const SELECT_SEARCH_HISTORY = `SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_email ='${localUser}' ORDER BY Search_date ASC`;
   connection.query(SELECT_SEARCH_HISTORY, (err, results)=>{
     if(err){
       return res.send(err)
@@ -172,7 +195,7 @@ app.get('/history', (req, res) => {
 //Earning list
 //TODO: Same as Fav list -> Change User_name
 app.get('/earning', (req, res) => {
-  const SELECT_EARNING_LIST = 'SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_name="Bruce Wayne"';
+  const SELECT_EARNING_LIST = `SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_email ='${localUser}'`;
   connection.query(SELECT_EARNING_LIST, (err, results) => {
       if(err){
         return res.send(err)
@@ -186,7 +209,7 @@ app.get('/earning', (req, res) => {
 })
 
 
-//TO check gets data properly in json format: "http://localhost:4000/profile"
+//TO check gets data properly in json format: "http://localhost:4000/<profile or fav list or earing...>"
 app.listen(4000, () => {
   console.log('Profile server listening on')
 } )
