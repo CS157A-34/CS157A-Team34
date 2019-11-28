@@ -3,21 +3,21 @@ Team repository for Team 34 group project
 
 ## Getting started 
 
-## Prerequisites
+### Prerequisites
 You need [**Node.js**](https://nodejs.org/en/) prior to installing.
 * Install Node.js
     * On Windows, Linux and MacOS, install the latest [Node version](https://nodejs.org/en/download/) from the Node.js website. 
+    
+### Set Up Database Schema, Table and Data
+* The schema should called `StockWeb`. If the schema name is changed, make sure to change it under `app.js`.
+* Go to `/app/backend/client/src/database_setup/` and run the `StockWeb.sql` in MySQL Workbrench or Terminal
+* `init.sql` will be creating the tables only (no data insert). 
 
 ## Installing
 
 With all the prerequisites installed, clone this repository with
 
 `git clone https://github.com/CS157A-34/CS157A-Team34.git`
-
-## Set Up Database Schema, Table and Data
-* The schema should called `StockWeb`. If the schema name is changed, make sure to change it under `app.js`.
-* Go to `/app/backend/client/src/database_setup/` and run the `StockWeb.sql` in MySQL Workbrench or Terminal
-* `init.sql` will be creating the tables only (no data insert). 
 
 ## To Run:
 * In Command Prompt:
