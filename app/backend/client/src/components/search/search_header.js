@@ -16,7 +16,7 @@ class Header extends Component {
   }
 
   getSearch = _ => {
-    fetch('http://localhost:4000/search')
+    fetch('http://localhost:4000/serachResult')
       .then(response => response.json())
       .then(response => this.setState({ search: response.data }))
       .catch(err => console.error(err))
