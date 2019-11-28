@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -33,14 +33,14 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "haoly66ly..",  /* change to your own MySQL Password */
-  database: "stockWeb"   /* change to your database name */
-  // multipleStatement: true
+  password: "shihsharon-18",  /* change to your own MySQL Password */
+  database: "stockWeb",   /* change to your database name */
+  multipleStatements: true
 });
 
-connection.connect(function(err){
-  (err)? console.log(err): console.log(connection);
-}); 
+connection.connect(function (err) {
+  (err) ? console.log(err) : console.log(connection);
+});
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -63,19 +63,19 @@ app.get('/signup', (req, res) => {
 
   // const id = Math.random();
   const INSERT_USER = `INSERT INTO User VALUES(UUID_SHORT(),'${name}', '${email}','${password}')`;
-  connection.query(INSERT_USER, (err, results)=>{
-    if(err){
+  connection.query(INSERT_USER, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       return res.send('user sucessfully added')
     }
-});
+  });
 })
 
 //sign in auth
 app.get('/signin', (req, res) => {
-  console.log(req);
+  // console.log(req);
   let email = req.query.email;
   let password = req.query.password;
   console.log(email);
@@ -83,23 +83,25 @@ app.get('/signin', (req, res) => {
 
   const SELECT_USER = `SELECT * FROM User WHERE User_email= '${email}'`;
   console.log(SELECT_USER);
-  connection.query(SELECT_USER, (err, results)=>{
-    if(err){
+  connection.query(SELECT_USER, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       // console.log(results);
       localUser = email;
-      localID = results.User_id;
-      console.log(localUser);
+      console.log(results);
+      localID = results[0].User_id;
+      console.log(localID + "-> LocalID for user");
+
       return res.json({
         data: results
       })
-    
+
       // return res.send('user sucessfully login')
-      
+
     }
-});
+  });
 })
 
 //profile
@@ -107,28 +109,28 @@ app.get('/signin', (req, res) => {
 app.get('/profile', (req, res) => {
   console.log(localUser);
   const SELECT_PROFILE = `SELECT User_name, User_email FROM User WHERE User_email = '${localUser}'`;
-  connection.query(SELECT_PROFILE, (err, results)=>{
-    if(err){
+  connection.query(SELECT_PROFILE, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
 
       return res.json({
         data: results
       })
     }
-});
+  });
 })
 
 //Favorite List
 //TODO: Change WHERE condition -> User_id or name
 app.get('/fav', (req, res) => {
   const SELECT_FAV_LIST = `SELECT * FROM Save, User, Stock, Daily WHERE User_email ='${localUser}' AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id`;
-  connection.query(SELECT_FAV_LIST, (err, results)=>{
-    if(err){
+  connection.query(SELECT_FAV_LIST, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       return res.json({
         data: results
       })
@@ -146,13 +148,13 @@ let localKey = '';
 
 app.get('/search', (req, res) => {
   let search_key = req.query.key;
-  console.log(search_key+ " -> input localKey");
+  console.log(search_key + " -> input localKey");
   const SELECT_SEARCH_RESULT = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${search_key}'`;
-  connection.query(SELECT_SEARCH_RESULT, (err, results)=>{
-    if(err){
+  connection.query(SELECT_SEARCH_RESULT, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       localKey = search_key;
       return res.json({
         data: results
@@ -161,14 +163,15 @@ app.get('/search', (req, res) => {
   });
 })
 
+//TODO: TYPOOOOOOOO
 app.get('/serachResult', (req, res) => {
-  console.log(localKey+ " -> Search result localKey");
+  console.log(localKey + " -> Search result localKey");
   const SELECT_SEARCH = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${localKey}'`;
-  connection.query(SELECT_SEARCH, (err, results)=>{
-    if(err){
+  connection.query(SELECT_SEARCH, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       return res.json({
         data: results
       })
@@ -182,11 +185,11 @@ app.get('/serachResult', (req, res) => {
 //TODO: Change WHERE condition -> User_id or name
 app.get('/history', (req, res) => {
   const SELECT_SEARCH_HISTORY = `SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_email ='${localUser}' ORDER BY Search_date ASC`;
-  connection.query(SELECT_SEARCH_HISTORY, (err, results)=>{
-    if(err){
+  connection.query(SELECT_SEARCH_HISTORY, (err, results) => {
+    if (err) {
       return res.send(err)
     }
-    else{
+    else {
       return res.json({
         data: results
       })
@@ -199,14 +202,14 @@ app.get('/history', (req, res) => {
 app.get('/earning', (req, res) => {
   const SELECT_EARNING_LIST = `SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_email ='${localUser}'`;
   connection.query(SELECT_EARNING_LIST, (err, results) => {
-      if(err){
-        return res.send(err)
-      }
-      else {
-        return res.json({
-          data: results
-        })
-      }
+    if (err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
   });
 })
 
@@ -224,40 +227,85 @@ app.get('/earning', (req, res) => {
 //   });
 // }
 
-app.get('/manage', (req, res) => {
-  console.log("line 205: " + req);
-  console.log(Object.keys(req.body));
-  // const stockID = findStockID(req.query.stockName);
-  // const stockCost = req.query.stockCost;
-  // const stockShare = req.query.stockShare;
-  // // const {username, email, password} = req.query;
 
-  // // const id = Math.random();
-  // const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(), '${localID}', '${stockID}', '${stockCost}','${stockShare}')`;
-  // connection.query(INSERT_EARNING, (err, results)=>{
-  //   if(err){
-  //     return res.send(err)
-  //   }
-  //   else{
-  //     return res.send('earning successfully added')
-  //   }
-  // });
+
+app.get('/manage', (req, res) => {
+  const stockname = req.query.name;
+  const cost = req.query.cost;
+  const share = req.query.share;
+
+  // console.log(stockname + " hehehehehehhehe");
+  // console.log(cost + " hehehehehehhehe");
+  // console.log(share + " hehehehehehhehe");
+  // console.log(localID+" -> heheheheh local ID");
+  const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(),'${localID}', (SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockname}'),'${cost}','${share}')`;
+
+  connection.query(INSERT_EARNING,(err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else { 
+      return res.json({
+        data: results
+      })
+    }
+  });
+ 
 })
+
+// app.get('/insertEarning', (req,res) => {
+//   console.log(localStockID +" ----> Stock ID going to 2nd connection");
+
+//   const INSERT_EARNING = `SELECT * FROM Stock WHERE Stock_ticker ='BV'`;
+//   connection.query(INSERT_EARNING, (err, results)=>{
+//     if(err){
+//       return res.send(err)
+//     }
+//     else{
+//       console.log(results+" --> Second connection!!!!");
+//       return res.json({
+//         data: results
+//       })
+//     }
+//   });
+
+
+// })
+
+// app.get('/manage', (req, res) => {
+//   console.log("line 205: " + req);
+//   console.log(Object.keys(req.body));
+//   // const stockID = findStockID(req.query.stockName);
+//   // const stockCost = req.query.stockCost;
+//   // const stockShare = req.query.stockShare;
+//   // // const {username, email, password} = req.query;
+
+//   // // const id = Math.random();
+//   // const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(), '${localID}', '${stockID}', '${stockCost}','${stockShare}')`;
+//   // connection.query(INSERT_EARNING, (err, results)=>{
+//   //   if(err){
+//   //     return res.send(err)
+//   //   }
+//   //   else{
+//   //     return res.send('earning successfully added')
+//   //   }
+//   // });
+// })
 
 
 //TO check gets data properly in json format: "http://localhost:4000/<profile or fav list or earing...>"
 app.listen(4000, () => {
   console.log('Profile server listening on')
-} )
+})
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

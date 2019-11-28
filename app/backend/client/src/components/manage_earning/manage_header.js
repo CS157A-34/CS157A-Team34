@@ -11,23 +11,27 @@ class Header extends Component {
     super(props);
     this.state = {
       qResult: [],
-      auth: true,
       stockName: '',
       stockCost: '',
       stockShare: '',
+      auth: true,
       stock:{
         stockName: '',
         stockCost: '',
-        stockShare: ''
+        stockShare: '',
       }
     }
   }
 
   manageEarning = _ => {
-    console.log("进去");
-    fetch(`http://localhost:4040/manage?name=FB&cost=120&share=130`)
+    console.log(this.state.stock.stockName);
+    console.log(this.state.stock.stockCost);
+    console.log(this.state.stock.stockShare);
+
+    fetch(`http://localhost:4040/manage?name=${this.state.stock.stockName}&cost=${this.state.stock.stockCost}&share=${this.state.stock.stockShare}`)
             .catch(err => console.log(err))
-    console.log(this.state);
+    // console.log(this.state);
+    this.setState({ redirect: true });
   }
 
   render() {
@@ -68,7 +72,7 @@ class Header extends Component {
                 </tbody>
               </table>
               <Route>
-                <Link to="/earning" className="btn-primary btn-block button-style" role="button" onClick={this.manageEarning}>Submit</Link>
+                <Link to="/home" className="btn-primary btn-block button-style" role="button" onClick={this.manageEarning}>Submit</Link>
               </Route>
             </form>
           </div>
