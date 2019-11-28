@@ -68,6 +68,23 @@ app.get('/signup', (req, res) => {
 });
 })
 
+app.get('/signin', (req, res) => {
+  const email = req.query.email;
+  const password = req.query.password;
+
+  const CHECK_USER = `SELECT * FROM User WHERE User_email=${email}`;
+  connection.query(CHECK_USER, (err, results)=>{
+    if(err){
+      return res.send(err)
+    }
+    else{
+      return res.json({
+        data: results
+      })
+    }
+});
+})
+
 //profile
 //TODO: Change WHERE condition -> User_name or User_email
 app.get('/profile', (req, res) => {

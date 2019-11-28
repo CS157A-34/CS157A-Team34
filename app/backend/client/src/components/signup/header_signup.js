@@ -20,7 +20,7 @@ class Header extends Component {
         }
       }
 
-      signUp = _=>{
+      signUp = _ =>{
         fetch(`http://localhost:4040/signup?username=${this.state.user.name}&email=${this.state.user.email}&password=${this.state.user.password}`)
             .catch(err => console.err(err))
         console.log(this.state);
@@ -30,7 +30,7 @@ class Header extends Component {
         const {user} = this.state;
         if(this.state.redirect){
             console.log('Successfully logged in')
-            return <Redirect exact push to ="/" />;
+            return <Redirect exact push to ="/home" />;
         }
         return (
             <header className="masthead-1 background-signin">
@@ -39,7 +39,6 @@ class Header extends Component {
                         <div className="h5-style">Create account</div>
                         <form>
                             <div className="form-row">
-                                <div className="" />
                                 {/* <input className="input-style" type="First Name" placeholder=" Enter first name" />
                                 <input className="input-style" type="Last Name" placeholder= "Enter Last Name" /> */}
                                 <input className="input-style" type="text" name="fname" placeholder=" Your Name " onChange={i=> this.setState({user:{...user,name: i.target.value}})}/>
