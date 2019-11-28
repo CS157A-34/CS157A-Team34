@@ -74,16 +74,7 @@ class Header extends Component {
                 <tbody>
                   {this.renderEarning()}
                 </tbody>
-                {/* <tbody className="list-body">
-                  <tr className="fav-tr">
-                    <td className="fav-td">{earning.map(this.renderTicker)}</td>
-                    <td className="fav-td">{earning.map(this.renderCosts)}</td>
-                    <td className="fav-td">{earning.map(this.renderPrice)}</td>
-                    <td className="fav-td">{earning.map(this.renderShare)}</td>
-                    <td className="fav-td">{earning.map(this.renderEarning)}</td>
-                    <td className="fav-td">{earning.map(this.renderEdit)}</td>
-                  </tr>
-                </tbody> */}
+                
               </table>
               <Link to="/manage+earning" className="button-add" role="button">+ Add New Earnings</Link>
                   

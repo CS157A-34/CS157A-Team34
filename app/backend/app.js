@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "haoly66ly..",  /* change to your own MySQL Password */
+  password: "shihsharon-18",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
@@ -48,6 +48,10 @@ if (process.env.NODE_ENV === "production") {
 
 require('./routes/html-routers')(app, connection);
 
+
+
+let localUser = '';
+
 //sign up auth
 app.get('/signup', (req, res) => {
   // console.log(req);
@@ -57,7 +61,7 @@ app.get('/signup', (req, res) => {
   // const {username, email, password} = req.query;
 
   // const id = Math.random();
-  const INSERT_USER = `INSERT INTO User VALUES(UUID(),'${name}', '${email}','${password}')`;
+  const INSERT_USER = `INSERT INTO User VALUES(UUID_SHORT(),'${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results)=>{
     if(err){
       return res.send(err)
@@ -68,32 +72,47 @@ app.get('/signup', (req, res) => {
 });
 })
 
+//sign in auth
 app.get('/signin', (req, res) => {
-  const email = req.query.email;
-  const password = req.query.password;
+  console.log(req);
+  let email = req.query.email;
+  let password = req.query.password;
+  console.log(email);
+  console.log(password)
 
-  const CHECK_USER = `SELECT * FROM User WHERE User_email=${email}`;
-  connection.query(CHECK_USER, (err, results)=>{
+  const SELECT_USER = `SELECT * FROM User WHERE User_email= '${email}'`;
+  console.log(SELECT_USER);
+  connection.query(SELECT_USER, (err, results)=>{
     if(err){
       return res.send(err)
     }
     else{
+      // console.log(results);
+      localUser = email;
+      console.log(localUser);
       return res.json({
         data: results
       })
+    
+      // return res.send('user sucessfully login')
+      
     }
 });
 })
 
+
+
 //profile
 //TODO: Change WHERE condition -> User_name or User_email
 app.get('/profile', (req, res) => {
-  const SELECT_PROFILE = 'SELECT User_name, User_email FROM User WHERE User_name = "Bruce Wayne"';
+  console.log(localUser);
+  const SELECT_PROFILE = `SELECT User_name, User_email FROM User WHERE User_email = '${localUser}'`;
   connection.query(SELECT_PROFILE, (err, results)=>{
     if(err){
       return res.send(err)
     }
     else{
+
       return res.json({
         data: results
       })

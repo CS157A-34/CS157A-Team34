@@ -14,7 +14,6 @@ class Header extends Component {
             qResult: [],
             email:'',
             password:'',
-            name: '',
             auth: false,
             user:{
               email:'',
@@ -26,7 +25,7 @@ class Header extends Component {
     signIn = _ => {
         console.log(this.state.user.email);
         fetch(`http://localhost:4040/signin?email=${this.state.user.email}&password=${this.state.user.password}`)
-            .catch(err => console.err(err))
+            .catch(err => console.log(err))
         console.log(this.state);
         this.setState({redirect:true});
     }
@@ -48,7 +47,7 @@ class Header extends Component {
                                 <input className="input-style" type="email" placeholder="  Your Email" onChange={i=> this.setState({user:{...user,email: i.target.value}})}/>
                                 <input className="input-style" type="password" placeholder="  Your Password" onChange={i=> this.setState({user:{...user,password: i.target.value}})}/>
                                 <Route>
-                                    <Link to="/home" className="btn-primary btn-block button-style" role="button">Log In</Link>
+                                    <Link to="/home" className="btn-primary btn-block button-style" role="button" onClick={this.signIn}>Log In</Link>
                                     <Link to="/" className="text-style" role="button">Forget your Password?</Link>
                                 </Route>
                             </div>
