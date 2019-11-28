@@ -3,12 +3,12 @@ Team repository for Team 34 group project
 
 ## Getting started 
 
-### Prerequisites
+## Prerequisites
 You need [**Node.js**](https://nodejs.org/en/) prior to installing.
 * Install Node.js
     * On Windows, Linux and MacOS, install the latest [Node version](https://nodejs.org/en/download/) from the Node.js website. 
 
-### Installing
+## Installing
 
 With all the prerequisites installed, clone this repository with
 
