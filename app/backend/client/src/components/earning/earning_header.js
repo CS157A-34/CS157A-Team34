@@ -76,7 +76,7 @@ class Header extends Component {
                 </tbody>
                 
               </table>
-              <Link to="/manage+earning" className="button-add" role="button">+ Add New Earnings</Link>
+              <Link to="/manageEarning" className="button-add" role="button">+ Add New Earnings</Link>
                   
             </div>
           </Route>

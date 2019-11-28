@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "shihsharon-18",  /* change to your own MySQL Password */
+  password: "haoly66ly..",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
@@ -51,6 +51,7 @@ require('./routes/html-routers')(app, connection);
 
 
 let localUser = '';
+let localID = '';
 
 //sign up auth
 app.get('/signup', (req, res) => {
@@ -89,6 +90,7 @@ app.get('/signin', (req, res) => {
     else{
       // console.log(results);
       localUser = email;
+      localID = results.User_id;
       console.log(localUser);
       return res.json({
         data: results
@@ -183,6 +185,40 @@ app.get('/earning', (req, res) => {
         })
       }
   });
+})
+
+// findStockID = (any) => {
+//   let stockTicker = any;
+//   const FIND_STOCK_ID = `SELECT Stock_id FROM Stock WHERE Stock_ticker = '${stockTicker}'`;
+//   connection.query(FIND_STOCK_ID, (err, results)=>{
+//     if(err){
+//       return res.send(err)
+//     }
+//     else{
+//       console.log(results);
+//       return results;
+//     }
+//   });
+// }
+
+app.get('/manage', (req, res) => {
+  console.log("line 205: " + req);
+  console.log(Object.keys(req.body));
+  // const stockID = findStockID(req.query.stockName);
+  // const stockCost = req.query.stockCost;
+  // const stockShare = req.query.stockShare;
+  // // const {username, email, password} = req.query;
+
+  // // const id = Math.random();
+  // const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(), '${localID}', '${stockID}', '${stockCost}','${stockShare}')`;
+  // connection.query(INSERT_EARNING, (err, results)=>{
+  //   if(err){
+  //     return res.send(err)
+  //   }
+  //   else{
+  //     return res.send('earning successfully added')
+  //   }
+  // });
 })
 
 
