@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "shihsharon-18",  /* change to your own MySQL Password */
+  password: "haoly66ly..",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
@@ -52,7 +52,7 @@ require('./routes/html-routers')(app, connection);
 app.get('/signup', (req, res) => {
   const {name, email, password} = req.query;
   // const id = Math.random();
-  const INSERT_USER = `INSERT INTO User VALUES(UUID_SHORT(),'${name}', '${email}','${password}')`;
+  const INSERT_USER = `INSERT INTO User VALUES(UUID(),'${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results)=>{
     if(err){
       return res.send(err)
