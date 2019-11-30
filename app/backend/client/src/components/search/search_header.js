@@ -16,7 +16,7 @@ class Header extends Component {
   }
 
   getSearch = _ => {
-    fetch('http://localhost:4000/search')
+    fetch('http://localhost:4000/serachResult')
       .then(response => response.json())
       .then(response => this.setState({ search: response.data }))
       .catch(err => console.error(err))
@@ -128,7 +128,7 @@ class Header extends Component {
             </table>
 
             {/* TODO: Add to my list -> Database: `Save` table */}
-            <h4><Link to="/manage+earning" className="button-add" role="button">+ Add To My List</Link></h4>
+            <h4><Link to="/manageEarning" className="button-add" role="button">+ Add To My List</Link></h4>
           </div>
 
         </div>

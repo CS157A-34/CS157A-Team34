@@ -22,12 +22,12 @@ const routing = (
         <div>
             {/* <UserTest /> <DashBoard />*/}
             <Route exact path="/" component={App} />
-            <Route path="/signin" component={SignIn} />
+            <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
             <Route path="/home" component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/earning" component={Earning} />
-            <Route path="/manage+earning" component={Manage} />
+            <Route exact path="/manageEarning" component={Manage} />
             <Route path="/fav" component={Favorite} />
             <Route path="/search" component={Search} />
             <Route path="/history" component={History} />
