@@ -48,7 +48,6 @@ class Header extends Component {
                                 <input className="input-style" type="password" placeholder="  Your Password" onChange={i=> this.setState({user:{...user,password: i.target.value}})}/>
                                 <Route>
                                     <Link to="/home" className="btn-primary btn-block button-style" role="button" onClick={this.signIn}>Log In</Link>
-                                    <Link to="/" className="text-style" role="button">Forget your Password?</Link>
                                 </Route>
                             </div>
                         </form>
