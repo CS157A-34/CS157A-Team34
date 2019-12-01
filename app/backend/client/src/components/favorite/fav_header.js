@@ -22,6 +22,13 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
+  deleteFav = (any) => {
+    let temp_id = Object.values(any)
+    fetch(`http://localhost:4040/delete?stockID=${temp_id}`)
+      .catch(err => console.log(err))
+    // this.setState({redirect: true});
+  }
+
   //check whether it's gain(green) or lose(red)
   gainOrLose = (any) => {
     if(Object.values(any) > 0) {
@@ -39,7 +46,7 @@ class Header extends Component {
         <tr key={Stock_id}>
           {/* TODO: 1.Should link to Stock company page 
                     2. Delete from list*/}
-          <td> <Link to="/search" role="button">{Stock_ticker}</Link></td>
+          <td><Link to="/search" role="button">{Stock_ticker}</Link></td>
           <td>{Open}</td>
           <td>{Closing}</td>
           <td>{High}</td>
@@ -48,7 +55,7 @@ class Header extends Component {
           <td>{Volume}</td>
           <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
           <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
-          <td><button type="submit" className="button-delete">Delete</button></td>
+          <td><Link to="/home" type="submit" className="button-delete" onClick={this.deleteFav({Stock_id})}>Delete</Link></td>
         </tr>
       )
     }
