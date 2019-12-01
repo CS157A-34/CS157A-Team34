@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './search.css';
 
 class Header extends Component {
   state = {
-    search: []
+    search: [],
+    stockID: ''
   }
 
   componentDidMount() {
@@ -20,6 +22,13 @@ class Header extends Component {
       .then(response => response.json())
       .then(response => this.setState({ search: response.data }))
       .catch(err => console.error(err))
+  }
+
+  addToFav = _ => {
+    console.log(this.state.stockID);
+    fetch(`http://localhost:4040/save?stockID=${this.state.stockID}`)
+      .catch(err => console.log(err))
+    this.setState({redirect: true});
   }
   
   //check whether it's gain(green) or lose(red)
@@ -39,6 +48,7 @@ class Header extends Component {
     return this.state.search.map((element, index) => {
       const { Stock_id, Open, Closing, High, Low, Price, Volume, Change, Change_percent,
       } = element
+      this.state.stockID = Stock_id;
       return (
         <tr key={Stock_id}>
           <td>{Open}</td>
@@ -128,7 +138,9 @@ class Header extends Component {
             </table>
 
             {/* TODO: Add to my list -> Database: `Save` table */}
-            <h4><Link to="/manageEarning" className="button-add" role="button">+ Add To My List</Link></h4>
+            <Route>
+              <Link to="/fav" className="button-add" role="button" onClick={this.addToFav}>+ Add To My List</Link>
+            </Route>
           </div>
 
         </div>
