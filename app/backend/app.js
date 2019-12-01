@@ -33,15 +33,9 @@ app.use(function (req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-<<<<<<< HEAD
-  password: "mypassword",  /* change to your own MySQL Password */
+  password: "haoly66ly..",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
-=======
-  password: "shihsharon-18",  /* change to your own MySQL Password */
-  database: "stockWeb",   /* change to your database name */
-  multipleStatements: true
->>>>>>> 5dadac73212fd100bc3e3165a34a94dcb7ca208c
 });
 
 connection.connect(function (err) {

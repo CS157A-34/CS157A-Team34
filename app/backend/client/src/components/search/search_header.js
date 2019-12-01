@@ -60,7 +60,7 @@ class Header extends Component {
       = element
       return (
         <tr key={Stock_id}>
-          <td><div className={this.gainOrLose({Wk_change})? 'gain': 'lose'}>{Wk_change}</div></td>
+          <td><div className={(this.gainOrLose({Wk_change})? 'gain': 'lose')}>{Wk_change}</div></td>
           <td><div className={(this.gainOrLose({Wk_percent})? 'gain': 'lose')}>{Wk_percent}</div></td>
           <td><div className={(this.gainOrLose({Mth_change})? 'gain': 'lose')}>{Mth_change}</div></td>
           <td><div className={(this.gainOrLose({Mth_percent})? 'gain': 'lose')}>{Mth_percent}</div></td>

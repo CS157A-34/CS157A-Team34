@@ -22,6 +22,16 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
+  //check whether it's gain(green) or lose(red)
+  gainOrLose = (any) => {
+    if(Object.values(any) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   renderStockData() {
     return this.state.fav.map((element, index) => {
       const { Stock_id, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
@@ -36,8 +46,8 @@ class Header extends Component {
           <td>{Low}</td>
           <td>{Price}</td>
           <td>{Volume}</td>
-          <td>{Change}</td>
-          <td>{Change_percent}</td>
+          <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
+          <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
           <td><button type="submit" className="button-delete">Delete</button></td>
         </tr>
       )

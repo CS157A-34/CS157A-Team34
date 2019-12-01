@@ -27,6 +27,17 @@ class Header extends Component {
     return total.toFixed();
   }
 
+   //check whether it's gain(green) or lose(red)
+  gainOrLose = (any) => {
+    if(Object.values(any) > 0) {
+      console.log("true?");
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 
   // TODO: Check if total gain(green) or lose (red)
   // TODO: Edit button
@@ -34,13 +45,14 @@ class Header extends Component {
   renderEarning() {
     return this.state.earning.map((element, index) => {
       const { Earning_id, Stock_ticker, Cost, Price, Share } = element
+      let tempEarn = this.getEarning(Cost, Price, Share);
       return (
         <tr key={Earning_id}>
           <td>{Stock_ticker}</td>
           <td>${Cost}</td>
           <td>${Price}</td>
           <td>{Share}</td>
-          <td><div className="lose"> ${this.getEarning(Cost, Price, Share)}</div></td>
+          <td><div className = {(this.gainOrLose({tempEarn})? 'gain': 'lose')}>{tempEarn}</div></td>
           <td><div><button type="submit" className="button-edit">Edit</button></div></td>
         </tr>
       )
