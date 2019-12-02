@@ -246,8 +246,10 @@ app.get('/save', (req, res) => {
 })
 
 app.get('/delete', (req, res) => {
-  const stockID = req.query.stockID;
-  const DELETE_FROM_FAVORITE = `DELETE FROM Save WHERE Stock_id = '${stockID}' AND User_id = '${localID}'`;
+  console.log(req.query);
+  const stockName = req.query.stockName;
+  const DELETE_FROM_FAVORITE = `DELETE FROM Save WHERE User_id = '${localID}' AND Stock_id = any(SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockName}')`;
+  console.log(DELETE_FROM_FAVORITE);
   connection.query(DELETE_FROM_FAVORITE,(err, results) => {
     if (err) {
       return res.send(err)

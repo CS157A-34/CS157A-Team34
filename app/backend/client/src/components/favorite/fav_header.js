@@ -7,9 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './fav.css';
 
 class Header extends Component {
-  state = {
-    fav: []
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+      stockName: '',
+      fav: [],
+      stock: {
+        stockName: ''
+      }
+    }
+  } 
 
   componentDidMount() {
     this.getFav();
@@ -22,9 +29,9 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
-  deleteFav = (any) => {
-    let temp_id = Object.values(any)
-    fetch(`http://localhost:4040/delete?stockID=${temp_id}`)
+  deleteFav = _ => {
+    console.log(this.state.stock.stockName);
+    fetch(`http://localhost:4040/delete?stockName=${this.state.stock.stockName}`)
       .catch(err => console.log(err))
     // this.setState({redirect: true});
   }
@@ -63,6 +70,7 @@ class Header extends Component {
   }
 
   render() {
+    const {stock} = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -95,6 +103,14 @@ class Header extends Component {
                   {this.renderStockData()}
                 </tbody>
               </table>
+
+              <div className="delete-container">
+                <form>
+                  <input placeholder="Ex: FB, OI"
+                    onChange={i=> this.setState({stock:{...stock,stockName: i.target.value}})} />
+                  <Link to="/fav" type="submit" className="button-delete" onClick={this.deleteFav}>Delete</Link>
+                </form>
+              </div>
             </div>
           </Route>
         </div>
