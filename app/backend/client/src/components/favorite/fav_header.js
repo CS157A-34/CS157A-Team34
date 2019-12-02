@@ -55,7 +55,7 @@ class Header extends Component {
           <td>{Volume}</td>
           <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
           <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
-          <td><Link to="/home" type="submit" className="button-delete" onClick={this.deleteFav({Stock_id})}>Delete</Link></td>
+          {/* <td><Link to="/home" type="submit" className="button-delete" onClick={this.deleteFav({Stock_id})}>Delete</Link></td> */}
         </tr>
       )
     }

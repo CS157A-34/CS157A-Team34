@@ -53,7 +53,7 @@ class Header extends Component {
           <td>${Price}</td>
           <td>{Share}</td>
           <td><div className = {(this.gainOrLose({tempEarn})? 'gain': 'lose')}>{tempEarn}</div></td>
-          <td><div><button type="submit" className="button-edit">Edit</button></div></td>
+          {/* <td><div><button type="submit" className="button-edit">Edit</button></div></td> */}
         </tr>
       )
     })
