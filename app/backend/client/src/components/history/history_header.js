@@ -4,6 +4,7 @@ import {
   Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './history.css';
 
 class Header extends Component {
   state = {
@@ -21,6 +22,16 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
+  //check whether it's gain(green) or lose(red)
+  gainOrLose = (any) => {
+    if(Object.values(any) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   renderHistoryData() {
     return this.state.history.map((element, index) => {
       const { Search_id, Search_date, Search_time, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
@@ -36,8 +47,8 @@ class Header extends Component {
           <td>{Low}</td>
           <td>{Price}</td>
           <td>{Volume}</td>
-          <td>{Change}</td>
-          <td>{Change_percent}</td>
+          <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
+          <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
         </tr>
       )
     }
@@ -68,7 +79,7 @@ class Header extends Component {
                     <th>High</th>
                     <th>Low</th>
                     <th>Price</th>
-                    <th>Volumn</th>
+                    <th>Volume</th>
                     <th>Change$</th>
                     <th>Change%</th>
                   </tr>

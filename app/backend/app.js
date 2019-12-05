@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mypassword",  /* change to your own MySQL Password */
+  password: "haoly66ly..",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
   // multipleStatement: true
 });
@@ -179,8 +179,6 @@ app.get('/serachResult', (req, res) => {
   });
 })
 
-
-
 //Search History
 //TODO: Change WHERE condition -> User_id or name
 app.get('/history', (req, res) => {
@@ -213,32 +211,12 @@ app.get('/earning', (req, res) => {
   });
 })
 
-// findStockID = (any) => {
-//   let stockTicker = any;
-//   const FIND_STOCK_ID = `SELECT Stock_id FROM Stock WHERE Stock_ticker = '${stockTicker}'`;
-//   connection.query(FIND_STOCK_ID, (err, results)=>{
-//     if(err){
-//       return res.send(err)
-//     }
-//     else{
-//       console.log(results);
-//       return results;
-//     }
-//   });
-// }
-
-
-
 app.get('/manage', (req, res) => {
-  const stockname = req.query.name;
+  const stockName = req.query.name;
   const cost = req.query.cost;
   const share = req.query.share;
 
-  // console.log(stockname + " hehehehehehhehe");
-  // console.log(cost + " hehehehehehhehe");
-  // console.log(share + " hehehehehehhehe");
-  // console.log(localID+" -> heheheheh local ID");
-  const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(),'${localID}', (SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockname}'),'${cost}','${share}')`;
+  const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(),'${localID}', (SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockName}'),'${cost}','${share}')`;
 
   connection.query(INSERT_EARNING,(err, results) => {
     if (err) {
@@ -250,48 +228,39 @@ app.get('/manage', (req, res) => {
       })
     }
   });
- 
 })
 
-// app.get('/insertEarning', (req,res) => {
-//   console.log(localStockID +" ----> Stock ID going to 2nd connection");
+app.get('/save', (req, res) => {
+  const stockID = req.query.stockID;
+  const SAVE_TO_FAVORITE = `INSERT INTO Save VALUES(UUID_SHORT(), '${localID}', '${stockID}')`;
+  connection.query(SAVE_TO_FAVORITE,(err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else { 
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
 
-//   const INSERT_EARNING = `SELECT * FROM Stock WHERE Stock_ticker ='BV'`;
-//   connection.query(INSERT_EARNING, (err, results)=>{
-//     if(err){
-//       return res.send(err)
-//     }
-//     else{
-//       console.log(results+" --> Second connection!!!!");
-//       return res.json({
-//         data: results
-//       })
-//     }
-//   });
-
-
-// })
-
-// app.get('/manage', (req, res) => {
-//   console.log("line 205: " + req);
-//   console.log(Object.keys(req.body));
-//   // const stockID = findStockID(req.query.stockName);
-//   // const stockCost = req.query.stockCost;
-//   // const stockShare = req.query.stockShare;
-//   // // const {username, email, password} = req.query;
-
-//   // // const id = Math.random();
-//   // const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(), '${localID}', '${stockID}', '${stockCost}','${stockShare}')`;
-//   // connection.query(INSERT_EARNING, (err, results)=>{
-//   //   if(err){
-//   //     return res.send(err)
-//   //   }
-//   //   else{
-//   //     return res.send('earning successfully added')
-//   //   }
-//   // });
-// })
-
+app.get('/delete', (req, res) => {
+  console.log(req.query);
+  const stockName = req.query.stockName;
+  const DELETE_FROM_FAVORITE = `DELETE FROM Save WHERE User_id = '${localID}' AND Stock_id = any(SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockName}')`;
+  console.log(DELETE_FROM_FAVORITE);
+  connection.query(DELETE_FROM_FAVORITE,(err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else { 
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
 
 //TO check gets data properly in json format: "http://localhost:4000/<profile or fav list or earing...>"
 app.listen(4000, () => {

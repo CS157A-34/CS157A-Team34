@@ -7,9 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './fav.css';
 
 class Header extends Component {
-  state = {
-    fav: []
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+      stockName: '',
+      fav: [],
+      stock: {
+        stockName: ''
+      }
+    }
+  } 
 
   componentDidMount() {
     this.getFav();
@@ -22,6 +29,23 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
+  deleteFav = _ => {
+    console.log(this.state.stock.stockName);
+    fetch(`http://localhost:4040/delete?stockName=${this.state.stock.stockName}`)
+      .catch(err => console.log(err))
+    // this.setState({redirect: true});
+  }
+
+  //check whether it's gain(green) or lose(red)
+  gainOrLose = (any) => {
+    if(Object.values(any) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   renderStockData() {
     return this.state.fav.map((element, index) => {
       const { Stock_id, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
@@ -29,16 +53,16 @@ class Header extends Component {
         <tr key={Stock_id}>
           {/* TODO: 1.Should link to Stock company page 
                     2. Delete from list*/}
-          <td> <Link to="/search" role="button">{Stock_ticker}</Link></td>
+          <td><Link to="/search" role="button">{Stock_ticker}</Link></td>
           <td>{Open}</td>
           <td>{Closing}</td>
           <td>{High}</td>
           <td>{Low}</td>
           <td>{Price}</td>
           <td>{Volume}</td>
-          <td>{Change}</td>
-          <td>{Change_percent}</td>
-          <td><button type="submit" className="button-delete">Delete</button></td>
+          <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
+          <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
+          {/* <td><Link to="/home" type="submit" className="button-delete" onClick={this.deleteFav({Stock_id})}>Delete</Link></td> */}
         </tr>
       )
     }
@@ -46,6 +70,7 @@ class Header extends Component {
   }
 
   render() {
+    const {stock} = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -78,6 +103,14 @@ class Header extends Component {
                   {this.renderStockData()}
                 </tbody>
               </table>
+
+              <div className="delete-container">
+                <form>
+                  <input placeholder="Ex: FB, OI"
+                    onChange={i=> this.setState({stock:{...stock,stockName: i.target.value}})} />
+                  <Link to="/fav" type="submit" className="button-delete" onClick={this.deleteFav}>Delete</Link>
+                </form>
+              </div>
             </div>
           </Route>
         </div>
