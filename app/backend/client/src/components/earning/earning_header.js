@@ -7,8 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './earning.css';
 
 class Header extends Component {
-  state = {
-    earning: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+      stockName: '',
+      earning: [],
+      stock: {
+        stockName: ''
+      }
+    }
   }
 
   componentDidMount() {
@@ -22,14 +30,20 @@ class Header extends Component {
       .catch(err => console.error(err))
   }
 
-  getEarning = (cost, price, share) => {
-    let total = (price - cost) * share;
-    return total.toFixed();
+  getEditStock = _ => {
+    console.log(this.state.stock.stockName);
+    fetch(`http://localhost:4040/edit?stockName=${this.state.stock.stockName}`)
+      .catch(err => console.log(err))
   }
 
-   //check whether it's gain(green) or lose(red)
+  getEarning = (cost, price, share) => {
+    let total = (price - cost) * share;
+    return total.toFixed(2);
+  }
+
+  //check whether it's gain(green) or lose(red)
   gainOrLose = (any) => {
-    if(Object.values(any) > 0) {
+    if (Object.values(any) > 0) {
       console.log("true?");
       return true;
     }
@@ -38,10 +52,6 @@ class Header extends Component {
     }
   }
 
-
-  // TODO: Check if total gain(green) or lose (red)
-  // TODO: Edit button
-  // TODO: Total of the total earning (entire row)
   renderEarning() {
     return this.state.earning.map((element, index) => {
       const { Earning_id, Stock_ticker, Cost, Price, Share } = element
@@ -50,10 +60,9 @@ class Header extends Component {
         <tr key={Earning_id}>
           <td>{Stock_ticker}</td>
           <td>${Cost}</td>
-          <td>${Price}</td>
+          <td><div className="price-text">${Price}</div></td>
           <td>{Share}</td>
-          <td><div className = {(this.gainOrLose({tempEarn})? 'gain': 'lose')}>{tempEarn}</div></td>
-          {/* <td><div><button type="submit" className="button-edit">Edit</button></div></td> */}
+          <td><div className={(this.gainOrLose({ tempEarn }) ? 'gain' : 'lose')}>{tempEarn}</div></td>
         </tr>
       )
     })
@@ -77,7 +86,7 @@ class Header extends Component {
                   <tr className="fav-tr">
                     <th>Stock</th>
                     <th>Costs</th>
-                    <th>Equity</th>
+                    <th>$ Equity</th>
                     <th>Share</th>
                     <th>Earnings</th>
                     <th></th>
@@ -86,10 +95,21 @@ class Header extends Component {
                 <tbody>
                   {this.renderEarning()}
                 </tbody>
-                
+
               </table>
-              <Link to="/manageEarning" className="button-add" role="button">+ Add New Earnings</Link>
-                  
+              <div className="delete-container">
+                <form>
+                  <table className="table">
+                    <thead></thead>
+                    <tbody>
+                      <tr>
+                        <td><Link to="/manageEarning" className="btn-primary btn-block button-style button-add" role="button">&#10010; Add A New Earning</Link></td>
+                        <td><Link to="/edit" className="btn-primary btn-block button-style button-add" role="button">&#9999; Edit Exist Earning</Link></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
             </div>
           </Route>
         </div>

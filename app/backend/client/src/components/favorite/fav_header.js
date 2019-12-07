@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import {
   Route,
-  Link
+  Link, Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './fav.css';
 
 class Header extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       stockName: '',
       fav: [],
       stock: {
         stockName: ''
       }
     }
-  } 
+  }
 
   componentDidMount() {
     this.getFav();
@@ -33,12 +34,11 @@ class Header extends Component {
     console.log(this.state.stock.stockName);
     fetch(`http://localhost:4040/delete?stockName=${this.state.stock.stockName}`)
       .catch(err => console.log(err))
-    // this.setState({redirect: true});
   }
 
   //check whether it's gain(green) or lose(red)
   gainOrLose = (any) => {
-    if(Object.values(any) > 0) {
+    if (Object.values(any) > 0) {
       return true;
     }
     else {
@@ -46,23 +46,23 @@ class Header extends Component {
     }
   }
 
+
   renderStockData() {
+    if (this.state.redirect) {
+      return <Redirect exact push to="/fav" />;
+    }
     return this.state.fav.map((element, index) => {
-      const { Stock_id, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
+      const { Stock_id, Stock_ticker, Open, Price, High, Low, Volume, Change, Change_percent } = element
       return (
         <tr key={Stock_id}>
-          {/* TODO: 1.Should link to Stock company page 
-                    2. Delete from list*/}
-          <td><Link to="/search" role="button">{Stock_ticker}</Link></td>
+          <td>{Stock_ticker}</td>
+          <td><div className="price-text">${Price}</div></td>
           <td>{Open}</td>
-          <td>{Closing}</td>
           <td>{High}</td>
           <td>{Low}</td>
-          <td>{Price}</td>
           <td>{Volume}</td>
-          <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
-          <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
-          {/* <td><Link to="/home" type="submit" className="button-delete" onClick={this.deleteFav({Stock_id})}>Delete</Link></td> */}
+          <td><div className={(this.gainOrLose({ Change }) ? 'gain' : 'lose')}>{Change}</div></td>
+          <td><div className={(this.gainOrLose({ Change_percent }) ? 'gain' : 'lose')}>{Change_percent}</div></td>
         </tr>
       )
     }
@@ -70,7 +70,7 @@ class Header extends Component {
   }
 
   render() {
-    const {stock} = this.state;
+    const { stock } = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -88,13 +88,12 @@ class Header extends Component {
                 <thead>
                   <tr>
                     <th>Stock</th>
+                    <th>$ Price</th>
                     <th>Open</th>
-                    <th>Closing</th>
                     <th>High</th>
                     <th>Low</th>
-                    <th>Price</th>
                     <th>Volumn</th>
-                    <th>Change$</th>
+                    <th>$Change</th>
                     <th>Change%</th>
                     <th></th>
                   </tr>
@@ -106,9 +105,16 @@ class Header extends Component {
 
               <div className="delete-container">
                 <form>
-                  <input placeholder="Ex: FB, OI"
-                    onChange={i=> this.setState({stock:{...stock,stockName: i.target.value}})} />
-                  <Link to="/fav" type="submit" className="button-delete" onClick={this.deleteFav}>Delete</Link>
+                  <table className="table">
+                    <thead></thead>
+                    <tbody>
+                      <tr>
+                        <td><div className="h5">Enter the Stock Ticker You'd like to Delete: </div></td>
+                        <td><input placeholder="Ex. FB, OI" onChange={i => this.setState({ stock: { ...stock, stockName: i.target.value } })} /></td>
+                        <td><Link to="/home" className=" button-block button-style button-delete" role="button" onClick={this.deleteFav({redirect: true})}>Delete From Favorite List</Link></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </form>
               </div>
             </div>

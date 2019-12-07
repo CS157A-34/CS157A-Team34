@@ -40,12 +40,9 @@ class Header extends Component {
                         <form>
                             <div className="form-row">
                                 <div className="" />
-                                {/* <input className="input-style" type="First Name" placeholder=" Enter first name" />
-                                <input className="input-style" type="Last Name" placeholder= "Enter Last Name" /> */}
                                 <input className="input-style" type="text" name="fname" placeholder=" Your Name " onChange={i=> this.setState({user:{...user,name: i.target.value}})}/>
                                 <input className="input-style" type="email" placeholder="  Your Email" onChange={i=> this.setState({user:{...user,email: i.target.value}})}/>
                                 <input className="input-style" type="password" placeholder="  Your Password" onChange={i=> this.setState({user:{...user,password: i.target.value}})}/>
-                                {/* <div className="btn-primary btn-block button-style" role="button" onClick={this.signUp}>Sign Up</div> */}
                                 <Route>
                                     <Link to="/home" className="btn-primary btn-block button-style" role="button" onClick={this.signUp}>Sign Up</Link>
                                 </Route>

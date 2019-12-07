@@ -19,16 +19,16 @@ class Header extends Component {
 
   getUser = _ => {
     fetch('http://localhost:4000/profile')
-    .then(response => response.json())
-    .then(response => this.setState({user: response.data}))
-    .catch(err => console.error(err) )
+      .then(response => response.json())
+      .then(response => this.setState({ user: response.data }))
+      .catch(err => console.error(err))
   }
 
-  renderEmail = ({User_name, User_email, User_password}) => <div key={User_name}>{User_email}</div>;
-  renderName = ({User_name, User_email, User_password}) => <div key={User_email}>{User_name}</div>;
+  renderEmail = ({ User_name, User_email, User_password }) => <div key={User_name}>{User_email}</div>;
+  renderName = ({ User_name, User_email, User_password }) => <div key={User_email}>{User_name}</div>;
 
   render() {
-    const {user} = this.state;
+    const { user } = this.state;
     return (
       <header className="masthead-1 background-home">
         <div className="side-nav">
@@ -40,17 +40,10 @@ class Header extends Component {
           </Route>
           <div className="profile-container">
             <h2>Profile</h2>
-            
-
             <div className="profile-text">Name</div>
             <div className="profile-box">{user.map(this.renderName)}</div>
-
-            {/* <div className="profile-text">Last Name</div>
-            <div className="profile-box">Shih</div> */}
-
             <div className="profile-text">Email Address</div>
             <div className="profile-box">{user.map(this.renderEmail)}</div>
-
           </div>
         </div>
       </header >

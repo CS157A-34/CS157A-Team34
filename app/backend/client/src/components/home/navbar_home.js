@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Route,
   Link,
-  Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dropdown, DropdownButton } from 'react-bootstrap'
@@ -20,21 +19,21 @@ class NavBar extends Component {
     }
   }
 
-  searchKey = _ => {
-    // console.log(this.state.search.key);
+  searchKey = _ => { 
     fetch(`http://localhost:4040/search?key=${this.state.search.key}`)
       .catch(err => console.log(err))
-    // console.log(this.state);
+    this.setState({ redirect: true });
+    //Add to search history at the same time
+    this.addToHistory();
+  }
+  addToHistory = _ => {
+    fetch(`http://localhost:4040/addToHistory?key=${this.state.search.key}`)
+      .catch(err => console.log(err))
     this.setState({ redirect: true });
   }
 
   render() {
     const { search } = this.state;
-    // if (this.state.redirect) {
-    //   console.log('Successfully find search key')
-    //   return <Redirect exact push to="/home" />;
-    // }
-
     return (
       <nav className="navbar navbar-light navbar-expand bg-light navigation-clean">
         <div className="container">
@@ -44,7 +43,7 @@ class NavBar extends Component {
               <form>
                 <div className="form-row">
                   <div className="col-12 col-md-9 mb-2 mb-md-0">
-                    <input className="form-control form-control-lg" type="text" placeholder="Search Stock Here..." onChange={i => this.setState({ search: { ...search, key: i.target.value } })} />
+                    <input className="form-control form-control-lg" type="text" placeholder="Search Stock(Ex.FB, GOOGLE, COKE...)" onChange={i => this.setState({ search: { ...search, key: i.target.value } })} />
                   </div>
                   <div className="col-12 col-md-3">
                     <Link to="/search" className="btn btn-block btn-lg icon-search" role="button" onClick={this.searchKey} /></div>

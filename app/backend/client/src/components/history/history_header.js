@@ -6,6 +6,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './history.css';
 
+
 class Header extends Component {
   state = {
     history: []
@@ -34,21 +35,17 @@ class Header extends Component {
 
   renderHistoryData() {
     return this.state.history.map((element, index) => {
-      const { Search_id, Search_date, Search_time, Stock_ticker, Open, Closing, High, Low, Price, Volume, Change, Change_percent } = element
+      const { Search_id, Search_time, Stock_ticker, Open, Price, High, Low, Change, Change_percent } = element
       return (
         <tr key={Search_id}>
-          {/* TODO: 1.Should link to Stock company page */}
-          <td>{Search_date}</td>
-          <td>{Search_time}</td>
-          <td> <Link to="/search" role="button">{Stock_ticker}</Link></td>
+          <td>{Stock_ticker}</td>
+          <td><div className="price-text">${Price}</div></td>
           <td>{Open}</td>
-          <td>{Closing}</td>
           <td>{High}</td>
           <td>{Low}</td>
-          <td>{Price}</td>
-          <td>{Volume}</td>
           <td><div className={(this.gainOrLose({Change})? 'gain': 'lose')}>{Change}</div></td>
           <td><div className={(this.gainOrLose({Change_percent})? 'gain': 'lose')}>{Change_percent}</div></td>
+          <td>{Search_time}</td>
         </tr>
       )
     }
@@ -71,17 +68,14 @@ class Header extends Component {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Search Date</th>
-                    <th>Time</th>
                     <th>Stock</th>
+                    <th>$ Price</th>
                     <th>Open</th>
-                    <th>Closing</th>
                     <th>High</th>
                     <th>Low</th>
-                    <th>Price</th>
-                    <th>Volume</th>
-                    <th>Change$</th>
+                    <th>$Change</th>
                     <th>Change%</th>
+                    <th>Search Date & Time</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -1,6 +1,17 @@
 # CS157ATeam34
 Team repository for Team 34 group project 
 
+## Project Overview
+ StockU is a web-based application which can handle user/client input and report back to the user all relevant information regarding a certain company’s stock.
+ Include Functions like: 
+ * Search for Stock Information
+ * View Past Search Results
+ * Add Stock to Watchlist(aka Favorite List)
+ * Delete Stock from Watchlist(aka Favorite List)
+ * Record Stock Earnings
+ * Edit Stock Earnings
+
+
 ## Getting started 
 
 ### Prerequisites
@@ -12,6 +23,21 @@ You need [**Node.js**](https://nodejs.org/en/) prior to installing.
 * The schema should called `StockWeb`. If the schema name is changed, make sure to change it under `app.js`.
 * Go to `/app/backend/client/src/database_setup/` and run the `StockWeb.sql` in MySQL Workbrench or Terminal
 * `init.sql` will be creating the tables only (no data insert). 
+* Make sure the *Safe Mode* is `OFF`.
+    * To Check *Safe Mode* is ON or OFF:
+    ``` sql
+        mysql> SHOW VARIABLES LIKE '%safe_updates%';
+        +------------------+-------+
+        | Variable_name    | Value |
+        +------------------+-------+
+        | sql_safe_updates | OFF   |
+        +------------------+-------+
+        1 row in set (0.00 sec)
+    ```
+    * If the *Safe Mode* is ON, run the command below:
+    ``` sql
+        SET SQL_SAFE_UPDATES=0;
+    ```
 
 ## Installing
 
@@ -48,6 +74,7 @@ With all the prerequisites installed, clone this repository with
    localhost:4000/fav
    localhost:4000/history
    localhost:4000/earning
+   localhost:4000/searchResult
    ```
    You will see something like this.
    ``` JSON

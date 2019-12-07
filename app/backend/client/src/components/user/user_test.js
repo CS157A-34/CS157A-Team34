@@ -15,7 +15,6 @@ class UserTest extends Component {
       console.log(data.data.User);
       this.setState({users: data.data.User});
     })
-    // .then(({response}) => this.setState({users: response.users}))
     .catch(error => console.log(error));
   }
   showUsers = user => <div key={user.User_id}>{user.User_name}{user.User_email}</div>

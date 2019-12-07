@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// var indexRouter = require('./routes/html-routes');
-// var usersRouter = require('./routes/message-api-routes');
 
 var app = express();
 const server = require('http').createServer(app);
@@ -33,9 +31,8 @@ app.use(function (req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "haoly66ly..",  /* change to your own MySQL Password */
+  password: "shihsharon-18",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
-  // multipleStatement: true
 });
 
 connection.connect(function (err) {
@@ -53,15 +50,12 @@ require('./routes/html-routers')(app, connection);
 let localUser = '';
 let localID = '';
 
-//sign up auth
+//Sign Up Auth & Add User Info to User Table
 app.get('/signup', (req, res) => {
-  // console.log(req);
   const name = req.query.username;
   const email = req.query.email;
   const password = req.query.password;
-  // const {username, email, password} = req.query;
 
-  // const id = Math.random();
   const INSERT_USER = `INSERT INTO User VALUES(UUID_SHORT(),'${name}', '${email}','${password}')`;
   connection.query(INSERT_USER, (err, results) => {
     if (err) {
@@ -73,41 +67,28 @@ app.get('/signup', (req, res) => {
   });
 })
 
-//sign in auth
+//User Sign In Auth
 app.get('/signin', (req, res) => {
-  // console.log(req);
   let email = req.query.email;
   let password = req.query.password;
-  console.log(email);
-  console.log(password)
 
   const SELECT_USER = `SELECT * FROM User WHERE User_email= '${email}'`;
-  console.log(SELECT_USER);
   connection.query(SELECT_USER, (err, results) => {
     if (err) {
       return res.send(err)
     }
     else {
-      // console.log(results);
       localUser = email;
-      console.log(results);
       localID = results[0].User_id;
-      console.log(localID + "-> LocalID for user");
-
       return res.json({
         data: results
       })
-
-      // return res.send('user sucessfully login')
-
     }
   });
 })
 
-//profile
-//TODO: Change WHERE condition -> User_name or User_email
+//Get User's Profile Info
 app.get('/profile', (req, res) => {
-  console.log(localUser);
   const SELECT_PROFILE = `SELECT User_name, User_email FROM User WHERE User_email = '${localUser}'`;
   connection.query(SELECT_PROFILE, (err, results) => {
     if (err) {
@@ -122,10 +103,9 @@ app.get('/profile', (req, res) => {
   });
 })
 
-//Favorite List
-//TODO: Change WHERE condition -> User_id or name
+//Get User's Favorite List
 app.get('/fav', (req, res) => {
-  const SELECT_FAV_LIST = `SELECT * FROM Save, User, Stock, Daily WHERE User_email ='${localUser}' AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id`;
+  const SELECT_FAV_LIST = `SELECT * FROM Save, User, Stock, Daily WHERE User_email ='${localUser}' AND User.User_id = Save.User_id AND Save.Stock_id = Stock.Stock_id AND Stock.Stock_id= Daily.Stock_id ORDER BY Stock_ticker ASC`;
   connection.query(SELECT_FAV_LIST, (err, results) => {
     if (err) {
       return res.send(err)
@@ -138,17 +118,12 @@ app.get('/fav', (req, res) => {
   });
 })
 
-
+//Local Search Key(Stock Ticker)
 let localKey = '';
 
-//Search Result for individual stock
-//TODO: Change WHERE condition -> User_id or name
-//TODO: Add Search history to `Search` table
-
-
+//Search for Stock Info
 app.get('/search', (req, res) => {
   let search_key = req.query.key;
-  console.log(search_key + " -> input localKey");
   const SELECT_SEARCH_RESULT = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${search_key}'`;
   connection.query(SELECT_SEARCH_RESULT, (err, results) => {
     if (err) {
@@ -163,9 +138,8 @@ app.get('/search', (req, res) => {
   });
 })
 
-//TODO: TYPOOOOOOOO
-app.get('/serachResult', (req, res) => {
-  console.log(localKey + " -> Search result localKey");
+//Get Search Result of the Stock
+app.get('/searchResult', (req, res) => {
   const SELECT_SEARCH = `SELECT * From Stock JOIN Daily USING (Stock_id) JOIN Week USING (Stock_id) JOIN Month USING (Stock_id) JOIN Quarter USING (Stock_id) JOIN Half_year USING (Stock_id) JOIN Year USING (Stock_id) WHERE Stock_ticker = '${localKey}'`;
   connection.query(SELECT_SEARCH, (err, results) => {
     if (err) {
@@ -179,10 +153,27 @@ app.get('/serachResult', (req, res) => {
   });
 })
 
-//Search History
-//TODO: Change WHERE condition -> User_id or name
+//Add Search to User's Search History
+app.get('/addToHistory', (req, res) => {
+  var d = Date();
+  let searchTime = d.toString();
+  let hisotry_key = req.query.key;
+  const INSERT_SEARCH_HISTORY =`INSERT INTO Search VALUES(UUID_SHORT(),'${localID}',(SELECT Stock_id FROM Stock WHERE Stock_ticker='${hisotry_key}'),'${searchTime}')`;
+  connection.query(INSERT_SEARCH_HISTORY, (err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
+
+//Get User's Search History
 app.get('/history', (req, res) => {
-  const SELECT_SEARCH_HISTORY = `SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_email ='${localUser}' ORDER BY Search_date ASC`;
+  const SELECT_SEARCH_HISTORY = `SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_email ='${localUser}' ORDER BY Stock_ticker ASC`;
   connection.query(SELECT_SEARCH_HISTORY, (err, results) => {
     if (err) {
       return res.send(err)
@@ -195,10 +186,9 @@ app.get('/history', (req, res) => {
   });
 })
 
-//Earning list
-//TODO: Same as Fav list -> Change User_name
+//Get User's Earning List
 app.get('/earning', (req, res) => {
-  const SELECT_EARNING_LIST = `SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_email ='${localUser}'`;
+  const SELECT_EARNING_LIST = `SELECT * FROM Earnings JOIN Daily USING(Stock_id) JOIN Stock USING(Stock_id) JOIN User USING(User_id) WHERE User_email ='${localUser}' ORDER BY Stock_ticker ASC`;
   connection.query(SELECT_EARNING_LIST, (err, results) => {
     if (err) {
       return res.send(err)
@@ -211,13 +201,13 @@ app.get('/earning', (req, res) => {
   });
 })
 
+//Add New Earning to Earning Table
 app.get('/manage', (req, res) => {
   const stockName = req.query.name;
   const cost = req.query.cost;
   const share = req.query.share;
 
   const INSERT_EARNING = `INSERT INTO Earnings VALUES(UUID_SHORT(),'${localID}', (SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockName}'),'${cost}','${share}')`;
-
   connection.query(INSERT_EARNING,(err, results) => {
     if (err) {
       return res.send(err)
@@ -230,6 +220,26 @@ app.get('/manage', (req, res) => {
   });
 })
 
+//Update the Information of Existed Earning in Earning Table
+app.get('/edit', (req, res) => {
+  const stockName = req.query.name;
+  const cost = req.query.cost;
+  const share = req.query.share;
+
+  const UPDATE_EARNING = `UPDATE Earnings JOIN User USING(User_id) JOIN Stock USING(Stock_id) SET Cost='${cost}', Share='${share}' WHERE Stock_ticker='${stockName}' AND User_email ='${localUser}'`;
+  connection.query(UPDATE_EARNING, (err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
+})
+
+//Save stock to favorite list
 app.get('/save', (req, res) => {
   const stockID = req.query.stockID;
   const SAVE_TO_FAVORITE = `INSERT INTO Save VALUES(UUID_SHORT(), '${localID}', '${stockID}')`;
@@ -245,11 +255,10 @@ app.get('/save', (req, res) => {
   });
 })
 
+//Delete saved stock from favorite list
 app.get('/delete', (req, res) => {
-  console.log(req.query);
   const stockName = req.query.stockName;
   const DELETE_FROM_FAVORITE = `DELETE FROM Save WHERE User_id = '${localID}' AND Stock_id = any(SELECT Stock_id FROM Stock WHERE Stock_ticker ='${stockName}')`;
-  console.log(DELETE_FROM_FAVORITE);
   connection.query(DELETE_FROM_FAVORITE,(err, results) => {
     if (err) {
       return res.send(err)
@@ -262,7 +271,8 @@ app.get('/delete', (req, res) => {
   });
 })
 
-//TO check gets data properly in json format: "http://localhost:4000/<profile or fav list or earing...>"
+
+//TO check gets data properly in json format: "http://localhost:4000/<profile or fav list or earning...>"
 app.listen(4000, () => {
   console.log('Profile server listening on')
 })

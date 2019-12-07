@@ -12,6 +12,7 @@ import Manage from './components/manage_earning/manage';
 import Favorite from './components/favorite/favorite';
 import Search from './components/search/search';
 import History from './components/history/history';
+import Edit from './components/edit/edit';
 import * as serviceWorker from './serviceWorker';
 
 
@@ -20,7 +21,6 @@ const routing = (
    
     <Router>
         <div>
-            {/* <UserTest /> <DashBoard />*/}
             <Route exact path="/" component={App} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
@@ -31,15 +31,12 @@ const routing = (
             <Route path="/fav" component={Favorite} />
             <Route path="/search" component={Search} />
             <Route path="/history" component={History} />
-
+            <Route path="/edit" component={Edit} />
         </div>
     </Router>
 )
 
 ReactDOM.render(routing, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 

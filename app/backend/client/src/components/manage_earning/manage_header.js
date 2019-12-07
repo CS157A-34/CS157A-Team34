@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
   Route,
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -24,13 +23,8 @@ class Header extends Component {
   }
 
   manageEarning = _ => {
-    console.log(this.state.stock.stockName);
-    console.log(this.state.stock.stockCost);
-    console.log(this.state.stock.stockShare);
-
     fetch(`http://localhost:4040/manage?name=${this.state.stock.stockName}&cost=${this.state.stock.stockCost}&share=${this.state.stock.stockShare}`)
             .catch(err => console.log(err))
-    // console.log(this.state);
     this.setState({ redirect: true });
   }
 
@@ -47,14 +41,14 @@ class Header extends Component {
           </Route>
 
           <div className="profile-container">
-            <h2>Manage Earning</h2>
+            <h2>&#10010; Add an Earning</h2>
             <form>
               <table className="table">
                 <thead></thead>
                 <tbody>
                   <tr>
-                    <td><div className="h5">Stock Name</div></td>
-                    <td><input type="text" placeholder="Ex. APPL, GOOGL" 
+                    <td><div className="h5">Stock Ticker</div></td>
+                    <td><input type="text" placeholder="Ex. GOOGL, FB..." 
                     onChange={i=> this.setState({stock:{...stock,stockName: i.target.value}})} /></td>
                     <td></td>
                   </tr>
@@ -72,7 +66,7 @@ class Header extends Component {
                 </tbody>
               </table>
               <Route>
-                <Link to="/home" className="btn-primary btn-block button-style" role="button" onClick={this.manageEarning}>Submit</Link>
+                <Link to="/earning" className="btn-primary btn-block button-style" role="button" onClick={this.manageEarning}>Submit</Link>
               </Route>
             </form>
           </div>
