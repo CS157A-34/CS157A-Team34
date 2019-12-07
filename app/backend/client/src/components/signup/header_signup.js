@@ -23,7 +23,6 @@ class Header extends Component {
     signUp = _=>{
         fetch(`http://localhost:4040/signup?username=${this.state.user.name}&email=${this.state.user.email}&password=${this.state.user.password}`)
             .catch(err => console.err(err))
-        console.log(this.state);
         this.setState({redirect:true});
     }
     render() {

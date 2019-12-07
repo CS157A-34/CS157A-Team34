@@ -27,12 +27,10 @@ class Header extends Component {
   updateEarning = _ => {
     fetch(`http://localhost:4040/edit?name=${this.state.stock.stockName}&cost=${this.state.stock.stockCost}&share=${this.state.stock.stockShare}`)
       .catch(err => console.log(err))
-    console.log(this.state);
     this.setState({ redirect: true });
   }
 
   deleteEarning = _ => {
-    console.log(this.state.stock.deleteStock);
     fetch(`http://localhost:4040/deleteEarning?deleteName=${this.state.stock.deleteStock}`)
       .catch(err => console.log(err))
   }

@@ -12,7 +12,6 @@ class UserTest extends Component {
   getUsers = _ => {
         axios.get('/User')
         .then((data) => {
-      console.log(data.data.User);
       this.setState({users: data.data.User});
     })
     .catch(error => console.log(error));

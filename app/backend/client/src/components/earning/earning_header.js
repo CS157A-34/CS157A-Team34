@@ -31,7 +31,6 @@ class Header extends Component {
   }
 
   getEditStock = _ => {
-    console.log(this.state.stock.stockName);
     fetch(`http://localhost:4040/edit?stockName=${this.state.stock.stockName}`)
       .catch(err => console.log(err))
   }
@@ -44,7 +43,6 @@ class Header extends Component {
   //check whether it's gain(green) or lose(red)
   gainOrLose = (any) => {
     if (Object.values(any) > 0) {
-      console.log("true?");
       return true;
     }
     else {

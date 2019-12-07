@@ -31,7 +31,6 @@ class Header extends Component {
   }
 
   deleteFav = _ => {
-    console.log(this.state.stock.stockName);
     fetch(`http://localhost:4040/delete?stockName=${this.state.stock.stockName}`)
       .catch(err => console.log(err))
   }

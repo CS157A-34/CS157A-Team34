@@ -23,17 +23,14 @@ class Header extends Component {
     }
 
     signIn = _ => {
-        // console.log(this.state.user.email);
         fetch(`http://localhost:4040/signin?email=${this.state.user.email}&password=${this.state.user.password}`)
             .catch(err => console.log(err))
-        // console.log(this.state);
         this.setState({redirect:true});
     }
 
     render() {
         const {user} = this.state;
          if(this.state.redirect){
-            console.log('Successfully logged in')
             return <Redirect exact push to ="/home" />;
         }
         return (
