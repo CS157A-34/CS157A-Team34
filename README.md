@@ -23,20 +23,20 @@ You need [**Node.js**](https://nodejs.org/en/) prior to installing.
 * The schema should called `StockWeb`. If the schema name is changed, make sure to change it under `app.js`.
 * Go to `/app/backend/client/src/database_setup/` and run the `StockWeb.sql` in MySQL Workbrench or Terminal
 * `init.sql` will be creating the tables only (no data insert). 
-* Make sure the *Safe Mode* is `OFF`.
-    * To Check *Safe Mode* is ON or OFF:
+* Make sure the **Safe Mode** is `OFF`.
+    * To Check **Safe Mode** is ON or OFF:
     ``` sql
-        mysql> SHOW VARIABLES LIKE '%safe_updates%';
-        +------------------+-------+
-        | Variable_name    | Value |
-        +------------------+-------+
-        | sql_safe_updates | OFF   |
-        +------------------+-------+
-        1 row in set (0.00 sec)
+     mysql> SHOW VARIABLES LIKE '%safe_updates%';
+     +------------------+-------+
+     | Variable_name    | Value |
+     +------------------+-------+
+     | sql_safe_updates | OFF   |
+     +------------------+-------+
+     1 row in set (0.00 sec)
     ```
-    * If the *Safe Mode* is ON, run the command below:
+    * If the **Safe Mode** is ON, run the sql command below:
     ``` sql
-        SET SQL_SAFE_UPDATES=0;
+     SET SQL_SAFE_UPDATES=0;
     ```
 
 ## Installing
@@ -54,7 +54,7 @@ With all the prerequisites installed, clone this repository with
     5. Install all dependencies with `npm install` for front-end
 
 * Changing your own MySQL Password
-    * After `cd app/backend`, find the app.js
+    * After `cd app/backend`, find the `app.js` (Note: Not `App.js`)
     ```JS
     const connection = mysql.createConnection({
     host: "localhost",
