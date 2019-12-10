@@ -52,6 +52,7 @@ With all the prerequisites installed, clone this repository with
     3. Install all dependencies with `npm install` for backend 
     4. `cd client`
     5. Install all dependencies with `npm install` for front-end
+    6. If you already have npm installed, you can also run npm update to fix any vulnerabilities
 
 * Changing your own MySQL Password
     * After `cd app/backend`, find the `app.js` (Note: Not `App.js`)
