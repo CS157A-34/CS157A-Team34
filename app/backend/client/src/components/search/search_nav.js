@@ -28,7 +28,7 @@ class NavBar extends Component {
               <Dropdown.Item><Link to="/home" role="button">Home</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/profile" role="button">My Profile</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/earning" role="button">My Earning</Link></Dropdown.Item>
-              <Dropdown.Item><Link to="/fav" role="button">Favortie List</Link></Dropdown.Item>
+              <Dropdown.Item><Link to="/fav" role="button">Favorite List</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/history" role="button">Search History</Link></Dropdown.Item>
               <Dropdown.Divider></Dropdown.Divider>
               <Dropdown.Item><Link to="/" role="button">Logout</Link></Dropdown.Item>

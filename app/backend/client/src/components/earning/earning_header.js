@@ -15,7 +15,8 @@ class Header extends Component {
       earning: [],
       stock: {
         stockName: ''
-      }
+      },
+      //highestEarner = ""
     }
   }
 
@@ -34,6 +35,14 @@ class Header extends Component {
     fetch(`http://localhost:4040/edit?stockName=${this.state.stock.stockName}`)
       .catch(err => console.log(err))
   }
+
+ /*
+  getHighestEarner = _=>{
+    fetch('http://localhost:4000/highestEarner')
+      .then(response => response.json())
+      .then(response => this.setState({ highestEarner = response.data}))
+      .catch(err => console.error(err))
+  }*/
 
   getEarning = (cost, price, share) => {
     let total = (price - cost) * share;

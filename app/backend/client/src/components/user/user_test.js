@@ -9,6 +9,10 @@ class UserTest extends Component {
     this.getUsers();
   }
 
+  /*
+  Using axios to link to the User method in app.js instead of express, 
+  */
+
   getUsers = _ => {
         axios.get('/User')
         .then((data) => {

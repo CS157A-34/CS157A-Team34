@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "shihsharon-18",  /* change to your own MySQL Password */
+  password: "mypassword",  /* change to your own MySQL Password */
   database: "stockWeb"   /* change to your database name */
 });
 
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
 require('./routes/html-routers')(app, connection);
 
 
-
+//localId and localUser change bases on the user ID of the currently logged in User 
 let localUser = '';
 let localID = '';
 
@@ -70,7 +70,7 @@ app.get('/signup', (req, res) => {
 //User Sign In Auth
 app.get('/signin', (req, res) => {
   let email = req.query.email;
-  let password = req.query.password;
+  //let password = req.query.password;
 
   const SELECT_USER = `SELECT * FROM User WHERE User_email= '${email}'`;
   connection.query(SELECT_USER, (err, results) => {
@@ -219,6 +219,25 @@ app.get('/manage', (req, res) => {
     }
   });
 })
+
+/*
+app.get('/gethighestearner', (req, res) => {
+  const stockName = req.query.name;
+  const cost = req.query.cost;
+  const share = req.query.share;
+
+  const HIGHEST_EARNER = 'SELECT Stock_ticker FROM Earning ORDER BY (Earning.Cost * Earning.Share)';
+  connection.query(HIGHEST_EARNER,(err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else { 
+      return res.json({
+        data: results
+      })
+    }
+  });
+})*/
 
 //Update the Information of Existed Earning in Earning Table
 app.get('/edit', (req, res) => {
