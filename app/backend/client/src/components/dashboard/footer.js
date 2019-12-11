@@ -16,6 +16,11 @@ class Footer extends Component {
                             <li className="list-inline-item">Terms of &nbsp;Use</li>
                             <li className="list-inline-item"><span>⋅</span></li>
                             <li className="list-inline-item">Privacy Policy</li>
+                            <li className = "list-inline-item" align = "right">Team Members: 
+                            <ul> Sheren Shih</ul>
+                            <ul>Liam Lacuna</ul>
+                            <ul>Sachin Shah</ul>
+                            </li>
                         </ul>
                         <p className="text-muted small mb-4 mb-lg-0">© StockU 2019. All Rights Reserved.</p>
                     </div>

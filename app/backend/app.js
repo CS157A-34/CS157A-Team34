@@ -171,6 +171,23 @@ app.get('/addToHistory', (req, res) => {
   });
 })
 
+/*
+//Delete a stock from search history
+app.get('/deleteFromHistory', (req, res) => {
+  let delete_key = req.query.key;
+  const DELETE_SEARCH_HISTORY = `DELETE FROM Search WHERE Stock_ticker ='${delete_key}'`;
+  connection.query(DELETE_SEARCH_HISTORY, (err, results) => {
+    if (err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
+})*/
+
 //Get User's Search History
 app.get('/history', (req, res) => {
   const SELECT_SEARCH_HISTORY = `SELECT * FROM Search JOIN User USING (User_id) JOIN Stock USING (Stock_id) JOIN Daily USING (Stock_id) WHERE User_email ='${localUser}' ORDER BY Stock_ticker ASC`;

@@ -46,6 +46,14 @@ header.masthead {
     margin-top: 70px;
     margin-bottom: 40px;
 }
+.icon-data {
+  background:url('../../assets/images/lock-icon-1.png') no-repeat center center;
+  width: 80px;
+  height: 80px;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 
 .footer {
   padding-top: 100px;

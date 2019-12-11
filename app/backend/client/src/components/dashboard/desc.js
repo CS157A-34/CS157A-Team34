@@ -28,6 +28,14 @@ class Disc extends Component {
                         <p className="lead mb-0">Makes your stock investment much more easier!</p>
                     </div>
                 </div>
+                <div className = "col-lg-4" align = "left">
+                    <div className="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div className = "d-flex features-icons-icon icon-data"/>
+                        <h3> Manage your Data</h3>
+                        <p className = "lead mb-0"> See your past search results for easy data access</p>
+                    </div>
+                </div>
+                
             </div>
         </div>
         </section>
